@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Music_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="450" ResizeMode="NoResize">
     <Grid>
-
+        <Image Name="albumArt" Height="300" Width="300" Margin="75,8,75,126"/>
+        <Label Name="songName" Height="30" Width="100" Margin="175,312,175,92">Song name</Label>
+        
+        <Button Name="puseAndPlay" Height="50" Width="100" Margin="175,374,175,10">pause and play</Button>
+        <Button Name="forwardSkip" Height="50" Width="100" Margin="340,374,10,10">forward skip</Button>
+        <Button Name="backwardSkip" Height="50" Width="100" Margin="10,374,340,10">backward skip</Button> 
     </Grid>
 </Window>

@@ -9,4 +9,17 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="MVVM\View\Uramichi oniisan KOTORI.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\Model\" />
+    <Folder Include="MVVM\ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="MVVM\View\Uramichi oniisan KOTORI.jpg" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="Music_app.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Music_app"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="450" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel>
+            <Image x:Name="themeArt"  Height="200" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="430" Margin="15,0,0,0">
+                    <Image x:Name="albumArt" Height="60" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
+                    <StackPanel>
+                        <Label x:Name="lblPlaying" Content="Now playing..." Width="100"/>
+                        <Label x:Name="lblAuthor" Content="Author" Width="100"/>
+                        <Label x:Name="lblSongName" Content="Song name" Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+                <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="420"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label x:Name="lblDuration" Content="00:00:00" Width="54" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,155,0"/>
+                    <Label x:Name="lblProgress" Content="00:00:00" Width="54" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="155,0,0,0"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnForwardSkip" Height="50" Width="100" Click="btnForwardSkip_Click" Content="forward skip" Padding="10" Margin="0,0,10,0"/>
+                    <Button x:Name="btnPauseAndPlay" Height="50" Width="100" Click="btnPauseAndPlay_Click" Content="pause and play"  Padding="10" Margin="10,0,10,0"/>
+                    <Button x:Name="btnBackwardSkip" Height="50" Width="100" Click="btnBackwardSkip_Click" Content="backward skip"  Padding="10" Margin="10,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window> 

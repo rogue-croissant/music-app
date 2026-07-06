@@ -4,33 +4,60 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Music_app"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="450" ResizeMode="NoResize">
+        mc:Ignorable="d" WindowStyle="None" 
+        Title="MainWindow" Height="550" Width="350" ResizeMode="NoResize"
+        MinHeight="500" MinWidth="350">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Grid>
-        <StackPanel>
-            <Image x:Name="themeArt"  Height="200" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="430" Margin="15,0,0,0">
-                    <Image x:Name="albumArt" Height="60" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
-                    <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Background="Transparent"  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,4,2">
+                <Button x:Name="btnSettings" Height="30" Width="30" Click="btnSettings_Click">0</Button>
+                <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click">-</Button>
+                <Button x:Name="btnMaximize" Height="30" Width="30" Click="btnMaximize_Click">🗖</Button>
+                <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Aqua"  Grid.Row="1" >
+            <Image x:Name="themeArt"  Height="200" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"  Margin="0,25,0,0"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Beige" Grid.Row="2">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,20,50,10" Background="Yellow">
+
+                    <Image x:Name="albumArt" Height="80" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
+
+                    <StackPanel Width="Auto" Height="Auto" Background="HotPink">
                         <Label x:Name="lblPlaying" Content="Now playing..." Width="100"/>
                         <Label x:Name="lblAuthor" Content="Author" Width="100"/>
                         <Label x:Name="lblSongName" Content="Song name" Width="100"/>
                     </StackPanel>
                 </StackPanel>
-                <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="420"/>
+                <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="auto" Margin="5,10,5,10"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Label x:Name="lblDuration" Content="00:00:00" Width="54" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,155,0"/>
-                    <Label x:Name="lblProgress" Content="00:00:00" Width="54" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="155,0,0,0"/>
+                <StackPanel HorizontalAlignment="Stretch" Height="Auto" Background="GreenYellow" Margin="5,5,5,10">
+                    <DockPanel LastChildFill="False">
+                        <Label x:Name="lblDuration" Content="00:00:00" Width="auto" DockPanel.Dock="Left"/>
+                        <Label x:Name="lblProgress" Content="00:00:00" Width="auto"  DockPanel.Dock="Right"/>
+                    </DockPanel>
                 </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="btnForwardSkip" Height="50" Width="100" Click="btnForwardSkip_Click" Content="forward skip" Padding="10" Margin="0,0,10,0"/>
-                    <Button x:Name="btnPauseAndPlay" Height="50" Width="100" Click="btnPauseAndPlay_Click" Content="pause and play"  Padding="10" Margin="10,0,10,0"/>
-                    <Button x:Name="btnBackwardSkip" Height="50" Width="100" Click="btnBackwardSkip_Click" Content="backward skip"  Padding="10" Margin="10,0,0,0"/>
+
+                <StackPanel  Orientation="Horizontal" Background="Purple" HorizontalAlignment="Center" Height="Auto" Margin="0,10,0,20">
+                    <Button x:Name="btnForwardSkip" Height="40" Width="Auto" Click="btnForwardSkip_Click" Content="forward skip"  Margin="0,0,5,0"/>
+                    <Button x:Name="btnPauseAndPlay" Height="40" Width="Auto" Click="btnPauseAndPlay_Click" Content="pause and play" Margin="5,0,5,0"/>
+                    <Button x:Name="btnBackwardSkip" Height="40" Width="Auto" Click="btnBackwardSkip_Click" Content="backward skip" Margin="5,0,0,0"/>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+       
     </Grid>
 </Window> 

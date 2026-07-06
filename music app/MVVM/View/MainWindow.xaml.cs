@@ -49,8 +49,43 @@ namespace Music_app
         {
             MessageBox.Show("Backward", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-       
 
-        
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            if(WindowState==WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+            }
+            else
+            {
+                WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Settings button eish", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+          
+               if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+                
+            
+                
+        }
     }
 }

@@ -72,9 +72,9 @@ namespace Music_app
             WindowState = WindowState.Minimized;
         }
 
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        private void btnplaylist_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Settings button eish", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Playlist button eish", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

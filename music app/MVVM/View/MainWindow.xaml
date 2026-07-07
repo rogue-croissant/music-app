@@ -19,7 +19,35 @@
 
         <StackPanel Background="Transparent"  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,4,2">
-                <Button x:Name="btnSettings" Height="30" Width="30" Click="btnSettings_Click">0</Button>
+
+                <ToggleButton x:Name="btnSettings">Settings</ToggleButton>
+                <ToggleButton x:Name="btnPlaylists">Playlists</ToggleButton>
+                <Popup IsOpen="{Binding IsChecked, ElementName=btnSettings, Mode=TwoWay}"
+                       PlacementTarget="{Binding ElementName=btnSettings}"
+                       StaysOpen="False"
+                       Placement="Bottom">
+
+                    <Border Background="White" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1" 
+                        Padding="10"
+                        CornerRadius="3">
+                        <StackPanel Width="150">
+                            <Label Name="lblUsername" Content="Username"/>
+                            <Label Name="lblTheme" Content="Theme"/>
+                            <ToggleButton x:Name="btnDarkMode" Content="Dark Mode" Margin="0,0,0,5"/>
+                            <Label Name="lbllanguage" Content="Language"/>
+                            <RibbonToggleButton x:Name="btnEnglish" Content="English" Margin="0,0,0,5"/>
+                            <RibbonToggleButton x:Name="btnSpanish" Content="Spanish" Margin="0,0,0,5"/>
+                            <Label Name="lblProvider" Content="Provider"/>
+                            <Button Content="Spotify" Margin="0,0,0,5"/>
+                            <Button Content="YouTube" Margin="0,0,0,5"/>
+
+                            <Button Name="btnLogOut" Content="Log Out" /> 
+                        </StackPanel>
+                    </Border>
+                </Popup>
+ 
                 <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click">-</Button>
                 <Button x:Name="btnMaximize" Height="30" Width="30" Click="btnMaximize_Click">🗖</Button>
                 <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>

@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "yNsRuVbnf2I=",
+  "dgSpecHash": "/71z3RsFfxU=",
   "success": true,
   "projectFilePath": "C:\\Users\\USER-PC\\source\\repos\\music app\\Music app\\Music app.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\USER-PC\\.nuget\\packages\\embedio\\3.5.2\\embedio.3.5.2.nupkg.sha512",
+    "C:\\Users\\USER-PC\\.nuget\\packages\\microsoft.web.webview2\\1.0.4078.44\\microsoft.web.webview2.1.0.4078.44.nupkg.sha512",
+    "C:\\Users\\USER-PC\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\USER-PC\\.nuget\\packages\\spotifyapi.web\\7.4.2\\spotifyapi.web.7.4.2.nupkg.sha512",
+    "C:\\Users\\USER-PC\\.nuget\\packages\\spotifyapi.web.auth\\7.4.2\\spotifyapi.web.auth.7.4.2.nupkg.sha512",
+    "C:\\Users\\USER-PC\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
+    "C:\\Users\\USER-PC\\.nuget\\packages\\unosquare.swan.lite\\3.1.0\\unosquare.swan.lite.3.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

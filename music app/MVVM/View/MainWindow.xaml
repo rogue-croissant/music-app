@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Music_app"
+        xmlns:local="clr-namespace:Music_app" xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d" WindowStyle="None" 
         Title="MainWindow" Height="550" Width="350" ResizeMode="NoResize"
         MinHeight="500" MinWidth="350">
@@ -22,6 +22,61 @@
 
                 <ToggleButton x:Name="btnSettings">Settings</ToggleButton>
                 <ToggleButton x:Name="btnPlaylists">Playlists</ToggleButton>
+                <ToggleButton x:Name="btnPlaylistsTracks">Playlists Tracks</ToggleButton>
+                <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
+                        PlacementTarget="{Binding ElementName=btnPlaylists}"
+                        StaysOpen="False"
+                        Placement="Bottom">
+
+                    <Border Background="White" 
+                            BorderBrush="Gray" 
+                            BorderThickness="1" 
+                            Padding="10"
+                            CornerRadius="3">
+                        <StackPanel Width="150">
+                            <ListView x:Name="lvPlaylist" ItemsSource="{Binding Playlists}" SelectionChanged="ListView_SelectionChanged">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock Text="{Binding Name}"/>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+
+                <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylistsTracks, Mode=TwoWay}"
+                    PlacementTarget="{Binding ElementName=btnPlaylistsTracks}"
+                    StaysOpen="False"
+                    Placement="Bottom">
+
+                    <Border Background="White" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1" 
+                        Padding="10"
+                        CornerRadius="3">
+                        <StackPanel Width="150">
+                            <ListView x:Name="lvPlaylistTracks" ItemsSource="{Binding PlaylistTracks}" SelectionChanged="lvPlaylistTracks_SelectionChanged">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock Text="{Binding Name}"/>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+
+                <Popup x:Name="popupTracks"
+                        PlacementTarget="{Binding ElementName=lvPlaylist}"
+                        Placement="Right"
+                        StaysOpen="False"/>
+
+
                 <Popup IsOpen="{Binding IsChecked, ElementName=btnSettings, Mode=TwoWay}"
                        PlacementTarget="{Binding ElementName=btnSettings}"
                        StaysOpen="False"
@@ -43,13 +98,13 @@
                             <Button Content="Spotify" Margin="0,0,0,5"/>
                             <Button Content="YouTube" Margin="0,0,0,5"/>
 
-                            <Button Name="btnLogOut" Content="Log Out" /> 
+                            <Button x:Name="btnLogIn" Content="Log In" Click="btnLogIn_Click"  Visibility="Visible"/>
+                            <Button x:Name="btnLogOut" Content="Log Out" Click="btnLogOut_Click" Visibility="Collapsed"/>
                         </StackPanel>
                     </Border>
                 </Popup>
- 
+
                 <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click">-</Button>
-                <Button x:Name="btnMaximize" Height="30" Width="30" Click="btnMaximize_Click">🗖</Button>
                 <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>
             </StackPanel>
         </StackPanel>
@@ -85,7 +140,15 @@
                     <Button x:Name="btnPauseAndPlay" Height="40" Width="Auto" Click="btnPauseAndPlay_Click" Content="pause and play" Margin="5,0,5,0"/>
                     <Button x:Name="btnBackwardSkip" Height="40" Width="Auto" Click="btnBackwardSkip_Click" Content="backward skip" Margin="5,0,0,0"/>
                 </StackPanel>
-            </StackPanel>
-       
+            <wv2:WebView2
+    x:Name="SpotifyPlayer"
+    Width="300"
+    Height="200"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    Visibility="Visible"/>
+        </StackPanel>
+        
+
     </Grid>
 </Window> 

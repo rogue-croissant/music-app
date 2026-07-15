@@ -50,6 +50,20 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.Web.WebView2": {
+              "target": "Package",
+              "version": "[1.0.4078.44, )"
+            },
+            "SpotifyAPI.Web": {
+              "target": "Package",
+              "version": "[7.4.2, )"
+            },
+            "SpotifyAPI.Web.Auth": {
+              "target": "Package",
+              "version": "[7.4.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

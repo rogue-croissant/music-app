@@ -19,3 +19,22 @@ C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\refin
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app.pdb
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app.genruntimeconfig.cache
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\ref\Music app.dll
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app.csproj.AssemblyReference.cache
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\EmbedIO.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\SpotifyAPI.Web.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\SpotifyAPI.Web.Auth.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Swan.Lite.dll
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app.csproj.Up2Date
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app_Content.g.cs
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\WebPlayer\index.html
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\WebPlayer\player.js

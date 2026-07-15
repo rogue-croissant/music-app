@@ -12,10 +12,15 @@
   <ItemGroup>
     <None Remove="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
-
+	<ItemGroup>
+		<Content Include="WebPlayer\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
   <ItemGroup>
-    <Folder Include="MVVM\Model\" />
-    <Folder Include="MVVM\ViewModel\" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4078.44" />
+    <PackageReference Include="SpotifyAPI.Web" Version="7.4.2" />
+    <PackageReference Include="SpotifyAPI.Web.Auth" Version="7.4.2" />
   </ItemGroup>
 
   <ItemGroup>

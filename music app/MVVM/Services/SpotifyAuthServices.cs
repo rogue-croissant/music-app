@@ -53,12 +53,12 @@ namespace Music_app.MVVM.Model
 
 
 
-            // 4. Wait for the redirect callback
+            // Wait for the redirect callback
             var context = await listener.GetContextAsync();
             var request = context.Request;
             string code = request.QueryString["code"];
 
-            // 5. Send response to the browser
+            //Send response to the browser
             var response = context.Response;
             string responseString = "<html><body><h1>Login Successful!</h1><p>You can close this window now and return to the app.</p></body></html>";
             byte[] buffer = Encoding.UTF8.GetBytes(responseString);
@@ -67,7 +67,7 @@ namespace Music_app.MVVM.Model
             response.OutputStream.Close();
             listener.Stop();
 
-            // 6. Exchange the authorization code for an access token
+            //Exchange the authorization code for an access token
             if (!string.IsNullOrEmpty(code))
             {
                 return await ExchangeCodeForTokenAsync(code);

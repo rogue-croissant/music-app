@@ -46,7 +46,6 @@ namespace Music_app
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             await SpotifyPlayer.EnsureCoreWebView2Async();
-            //SpotifyPlayer.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
 
             SpotifyPlayer.NavigationCompleted += SpotifyPlayer_NavigationCompleted;
 
@@ -58,29 +57,11 @@ namespace Music_app
             SpotifyPlayer.CoreWebView2.Navigate(
                 new Uri(path).AbsoluteUri);
         }
-        private void CoreWebView2_WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
+        private async void SpotifyPlayer_NavigationCompleted(object sender,CoreWebView2NavigationCompletedEventArgs e)
         {
-            try
-            {
-                MessageBox.Show("Raw JSON:\n" + e.WebMessageAsJson);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-        private async void SpotifyPlayer_NavigationCompleted(
-     object sender,
-     CoreWebView2NavigationCompletedEventArgs e)
-        {
-           // MessageBox.Show("Web page loaded");
             string html = await SpotifyPlayer.ExecuteScriptAsync("document.documentElement.outerHTML");
-           // Clipboard.SetText(html);
-           // MessageBox.Show(html);
             
             string scripts = await SpotifyPlayer.ExecuteScriptAsync(@"Array.from(document.scripts).map(s => s.src).join('\n');");
-          //  Clipboard.SetText(scripts);
-           // MessageBox.Show(scripts);
         }
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -140,8 +121,6 @@ namespace Music_app
                
                 string accessToken = await authService.AuthenticateUserAsync();
                 await SpotifyPlayer.ExecuteScriptAsync($"window.accessToken='{accessToken}'; createPlayer();");
-               // Clipboard.SetText(accessToken);
-               // MessageBox.Show("access token copied to clipboard");
 
                 btnLogIn.Visibility = Visibility.Collapsed;
                 btnLogOut.Visibility = Visibility.Visible;
@@ -185,7 +164,6 @@ namespace Music_app
             if (selectedPlaylist == null)
                 return;
             
-
             popupTracks.IsOpen = true;
            
             List<Tracks> playlistTracks= await apiService.GetPlaylistTracksAsync(selectedPlaylist.Id);
@@ -200,29 +178,47 @@ namespace Music_app
         private async void lvPlaylistTracks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Tracks selectedTrack = (Tracks)((ListView)sender).SelectedItem;
-
+            string artist = "";
+            
             if (selectedTrack == null)
                 return;
 
-           // MessageBox.Show("Track selected");
-
-          //  string result = await SpotifyPlayer.ExecuteScriptAsync(@"typeof playTrack;");
-
-           // MessageBox.Show(result);
-
             try
             {
-               string result = await SpotifyPlayer.ExecuteScriptAsync($"playTrack('{selectedTrack.Uri}')");
+             await SpotifyPlayer.ExecuteScriptAsync($"playTrack('{selectedTrack.Uri}')");
+                lblSongName.Content = selectedTrack.Name;
+                artist = "";
+                for (int i = 0; i < selectedTrack.Artists.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        artist = selectedTrack.Artists[i].Name;
+                    }
+                    else
+                    {
+                        artist = artist + ", " + selectedTrack.Artists[i].Name;
+                    }
+                }
 
-             //   MessageBox.Show("Returned: " + result);
+                lblAuthor.Content = artist;
+
+                if (selectedTrack.Album.Images.Count > 0)
+                {
+                    BitmapImage bitmap = new BitmapImage();
+
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(selectedTrack.Album.Images[0].Url);
+                    bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    bitmap.CacheOption = BitmapCacheOption.OnDemand;
+                    bitmap.EndInit();
+
+                    imgAlbumArt.Source = bitmap;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-
-
-         //   MessageBox.Show(result);
         }
     }
 }

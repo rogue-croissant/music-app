@@ -118,12 +118,12 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,20,50,10" Background="Yellow">
 
-                    <Image x:Name="albumArt" Height="80" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
+                    <Image x:Name="imgAlbumArt" Height="80" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
 
                     <StackPanel Width="Auto" Height="Auto" Background="HotPink">
-                        <Label x:Name="lblPlaying" Content="Now playing..." Width="100"/>
-                        <Label x:Name="lblAuthor" Content="Author" Width="100"/>
-                        <Label x:Name="lblSongName" Content="Song name" Width="100"/>
+                    <Label x:Name="lblPlaying" Content="Now playing..." Width="Auto"/>
+                    <Label x:Name="lblAuthor" Content="Author" Width="Auto"/>
+                    <Label x:Name="lblSongName" Content="Song name" Width="Auto"/>
                     </StackPanel>
                 </StackPanel>
                 <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="auto" Margin="5,10,5,10"/>

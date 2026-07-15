@@ -19,7 +19,9 @@ namespace Music_app.MVVM.Services
         private readonly HttpClient _client;
         public string trackUrl = "https://api.spotify.com/v1/me/tracks";
         public string playlistUrl = "https://api.spotify.com/v1/me/playlists";
-        
+        public string currentTrackUrl = "https://api.spotify.com/v1/me/player/currently-playing";
+
+
         public SpotifyApiServices(string accessToken)//my constructor to recive my access token
         {
             _client = new HttpClient();
@@ -73,12 +75,8 @@ namespace Music_app.MVVM.Services
             response.EnsureSuccessStatusCode();
             string json = await response.Content.ReadAsStringAsync();
 
-          
-            response.EnsureSuccessStatusCode();
             PlaylistTrackResponse result = JsonSerializer.Deserialize<PlaylistTrackResponse>(json);
-   
 
-        
             List<Tracks> tracks = new List<Tracks>();
 
             foreach (PlaylistItem item in result.Items)
@@ -87,6 +85,18 @@ namespace Music_app.MVVM.Services
             }
 
             return tracks;
+        }
+
+        public async Task<Tracks> GetCurrentTrackAsync()
+        {
+            HttpResponseMessage respose = await _client.GetAsync(currentTrackUrl);
+            respose.EnsureSuccessStatusCode();
+
+            string json = await respose.Content.ReadAsStringAsync();
+
+            CurrentTrackResponse result = JsonSerializer.Deserialize<CurrentTrackResponse>(json);
+
+            return result.item;
         }
     }
     

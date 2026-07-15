@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Music_app
 {
@@ -32,6 +33,9 @@ namespace Music_app
         private string username = "user1";
         private MainViewModel viewModel;
         public SpotifyApiServices apiService;
+        private DispatcherTimer playerTimer;
+        private bool updatingTrack = false;
+        private string? currentTrackId = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +46,7 @@ namespace Music_app
             DataContext = viewModel;
 
             Loaded += MainWindow_Loaded;
+           
         }
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -121,7 +126,7 @@ namespace Music_app
                
                 string accessToken = await authService.AuthenticateUserAsync();
                 await SpotifyPlayer.ExecuteScriptAsync($"window.accessToken='{accessToken}'; createPlayer();");
-
+                Clipboard.SetText( accessToken );
                 btnLogIn.Visibility = Visibility.Collapsed;
                 btnLogOut.Visibility = Visibility.Visible;
 
@@ -145,6 +150,9 @@ namespace Music_app
                     viewModel.Playlists.Add(playlist);
                 }
 
+
+                await UpdateCurrentTrackUi();
+                StartPlayerTimer();
             }
             catch (Exception ex)
             {
@@ -159,7 +167,6 @@ namespace Music_app
 
         private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-         
             Playlist selectedPlaylist = (Playlist)((ListView)sender).SelectedItem;
             if (selectedPlaylist == null)
                 return;
@@ -175,6 +182,94 @@ namespace Music_app
 
         }
 
+        public void UpdateSongInformation(Tracks current)
+        {
+            string artist = "";
+            if (current == null) return;
+
+            lblSongName.Content = current.Name;
+    
+            for (int i = 0; i < current.Artists.Count; i++)
+            {
+                if (i == 0)
+                {
+                    artist = current.Artists[i].Name;
+                }
+                else
+                {
+                    artist = artist + ", " + current.Artists[i].Name;
+                }
+            }
+
+            lblAuthor.Content = artist;
+
+            if (current.Album.Images.Count > 0)
+            {
+                BitmapImage bitmap = new BitmapImage();
+
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(current.Album.Images[0].Url);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+               
+
+                imgAlbumArt.Source = bitmap;
+            }
+        }
+        public void updateSongProgress(Tracks current)
+        {
+            
+        }
+
+        private async Task UpdateCurrentTrackUi()
+        {
+            if (updatingTrack)
+                return;
+
+            try { 
+                updatingTrack = true;
+
+            Tracks current = await apiService.GetCurrentTrackAsync();
+
+            if (current.Id != currentTrackId)
+                {
+                  //album
+                  //songName
+                  //Artist
+                    currentTrackId = current.Id;
+                    UpdateSongInformation(current);
+                }
+                //progressbar
+                //elapsed tiem
+                //pause/play state
+
+            updateSongProgress(current);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                updatingTrack = false;
+            }
+
+        }
+
+        private void StartPlayerTimer()
+        {
+            playerTimer = new DispatcherTimer();
+
+            playerTimer.Interval = TimeSpan.FromSeconds(1);
+
+            playerTimer.Tick += async (s, e) =>
+            {
+                await UpdateCurrentTrackUi();
+            };
+
+            playerTimer.Start();
+        }
         private async void lvPlaylistTracks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Tracks selectedTrack = (Tracks)((ListView)sender).SelectedItem;
@@ -185,35 +280,10 @@ namespace Music_app
 
             try
             {
-             await SpotifyPlayer.ExecuteScriptAsync($"playTrack('{selectedTrack.Uri}')");
-                lblSongName.Content = selectedTrack.Name;
-                artist = "";
-                for (int i = 0; i < selectedTrack.Artists.Count; i++)
-                {
-                    if (i == 0)
-                    {
-                        artist = selectedTrack.Artists[i].Name;
-                    }
-                    else
-                    {
-                        artist = artist + ", " + selectedTrack.Artists[i].Name;
-                    }
-                }
-
-                lblAuthor.Content = artist;
-
-                if (selectedTrack.Album.Images.Count > 0)
-                {
-                    BitmapImage bitmap = new BitmapImage();
-
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(selectedTrack.Album.Images[0].Url);
-                    bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                    bitmap.CacheOption = BitmapCacheOption.OnDemand;
-                    bitmap.EndInit();
-
-                    imgAlbumArt.Source = bitmap;
-                }
+                await SpotifyPlayer.ExecuteScriptAsync($"playTrack('{selectedTrack.Uri}')");
+                await Task.Delay(1000);
+                await UpdateCurrentTrackUi();
+ 
             }
             catch (Exception ex)
             {

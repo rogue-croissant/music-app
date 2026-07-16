@@ -71,6 +71,12 @@ function createPlayer() {
       //  log(success);
     });
 }
+async function forwardSkip() {
+    await window.player.nextTrack();
+}
+async function backwardSkip() {
+    await window.player.previousTrack();
+}
 async function togglePlayer() {
     let state = await window.player.getCurrentState();
 

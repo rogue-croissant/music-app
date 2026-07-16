@@ -87,13 +87,13 @@ namespace Music_app
             await SpotifyPlayer.ExecuteScriptAsync("togglePlayer();");
 
         }
-        private void btnForwardSkip_Click(object sender, RoutedEventArgs e)
+        private async void btnForwardSkip_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Forward", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
+            await SpotifyPlayer.ExecuteScriptAsync("forwardSkip();");
         }
-        private void btnBackwardSkip_Click(object sender, RoutedEventArgs e)
+        private async void btnBackwardSkip_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Backward", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
+            await SpotifyPlayer.ExecuteScriptAsync("backwardSkip();");
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -162,7 +162,6 @@ namespace Music_app
                 }
 
                 await apiService.PutTransferPlaybackAsync(deviceId);
-
                 
                 await UpdateCurrentTrackUi();
                 StartPlayerTimer();

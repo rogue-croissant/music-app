@@ -15,5 +15,11 @@ namespace Music_app.MVVM.Model
 
         [JsonPropertyName("actions")]
         public Actions actions { get; set; }
+
+        [JsonPropertyName("is_playing")]
+        public bool isPlaying { get; set; }
+
+        [JsonPropertyName("progress_ms")]
+        public int progress { get; set; }
     }
 }

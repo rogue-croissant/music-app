@@ -3,6 +3,7 @@ using Music_app.MVVM.Model;
 using Music_app.MVVM.Services;
 using Music_app.MVVM.ViewModel;
 using SpotifyAPI.Web.Auth;
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -81,9 +82,10 @@ namespace Music_app
         {
             MessageBox.Show("bitch ass");
         }
-        private void btnPauseAndPlay_Click(object sender, RoutedEventArgs e)
+        private async void btnPauseAndPlay_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Pause and Play", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
+            await SpotifyPlayer.ExecuteScriptAsync("togglePlayer();");
+
         }
         private void btnForwardSkip_Click(object sender, RoutedEventArgs e)
         {
@@ -149,8 +151,19 @@ namespace Music_app
                 {
                     viewModel.Playlists.Add(playlist);
                 }
+                string deviceId = "";
 
+                while (string.IsNullOrWhiteSpace(deviceId))
+                {
+                    await Task.Delay(200);
 
+                    deviceId = await SpotifyPlayer.ExecuteScriptAsync("window.deviceId");
+                    deviceId = deviceId.Trim('"');
+                }
+
+                await apiService.PutTransferPlaybackAsync(deviceId);
+
+                
                 await UpdateCurrentTrackUi();
                 StartPlayerTimer();
             }
@@ -216,9 +229,18 @@ namespace Music_app
                 imgAlbumArt.Source = bitmap;
             }
         }
-        public void updateSongProgress(Tracks current)
+        public void updateSongProgress(CurrentTrackResponse current)
         {
-            
+            TimeSpan duration = TimeSpan.FromMilliseconds(current.item.DurationMs);
+            TimeSpan progress = TimeSpan.FromMilliseconds(current.progress);
+            lblDuration.Content = duration.ToString(@"mm\:ss");
+            lblProgress.Content = progress.ToString(@"mm\:ss");
+
+            songProgress.Minimum = 0;
+            songProgress.Maximum = current.item.DurationMs;
+            songProgress.Value = current.progress;
+
+
         }
 
         private async Task UpdateCurrentTrackUi()
@@ -229,15 +251,15 @@ namespace Music_app
             try { 
                 updatingTrack = true;
 
-            Tracks current = await apiService.GetCurrentTrackAsync();
+            CurrentTrackResponse current = await apiService.GetCurrentTrackAsync();
 
-            if (current.Id != currentTrackId)
+            if (current.item.Id != currentTrackId)
                 {
                   //album
                   //songName
                   //Artist
-                    currentTrackId = current.Id;
-                    UpdateSongInformation(current);
+                    currentTrackId = current.item.Id;
+                    UpdateSongInformation(current.item);
                 }
                 //progressbar
                 //elapsed tiem

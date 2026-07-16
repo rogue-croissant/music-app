@@ -130,8 +130,8 @@
 
                 <StackPanel HorizontalAlignment="Stretch" Height="Auto" Background="GreenYellow" Margin="5,5,5,10">
                     <DockPanel LastChildFill="False">
-                        <Label x:Name="lblDuration" Content="00:00:00" Width="auto" DockPanel.Dock="Left"/>
-                        <Label x:Name="lblProgress" Content="00:00:00" Width="auto"  DockPanel.Dock="Right"/>
+                        <Label x:Name="lblProgress" Content="00:00:00" Width="auto" DockPanel.Dock="Left"/>
+                        <Label x:Name="lblDuration" Content="00:00:00" Width="auto"  DockPanel.Dock="Right"/>
                     </DockPanel>
                 </StackPanel>
 

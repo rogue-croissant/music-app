@@ -20,6 +20,7 @@ namespace Music_app.MVVM.Services
         public string trackUrl = "https://api.spotify.com/v1/me/tracks";
         public string playlistUrl = "https://api.spotify.com/v1/me/playlists";
         public string currentTrackUrl = "https://api.spotify.com/v1/me/player/currently-playing";
+        public string transferPlaybackUrl = "https://api.spotify.com/v1/me/player";
 
 
         public SpotifyApiServices(string accessToken)//my constructor to recive my access token
@@ -87,16 +88,38 @@ namespace Music_app.MVVM.Services
             return tracks;
         }
 
-        public async Task<Tracks> GetCurrentTrackAsync()
+        public async Task<CurrentTrackResponse> GetCurrentTrackAsync()
         {
-            HttpResponseMessage respose = await _client.GetAsync(currentTrackUrl);
-            respose.EnsureSuccessStatusCode();
+            HttpResponseMessage response = await _client.GetAsync(currentTrackUrl);
+            response.EnsureSuccessStatusCode();
 
-            string json = await respose.Content.ReadAsStringAsync();
+            string json = await response.Content.ReadAsStringAsync();
 
             CurrentTrackResponse result = JsonSerializer.Deserialize<CurrentTrackResponse>(json);
 
-            return result.item;
+            return result;
+        }
+
+        public async Task PutTransferPlaybackAsync(string deviceId)
+        {
+            var body = new
+            {
+                device_ids = new[] { deviceId },
+                play = true
+            };
+
+            string json = JsonSerializer.Serialize(body);
+
+            HttpContent content =
+                new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response =
+                await _client.PutAsync(
+                    transferPlaybackUrl,
+                    content);
+
+            response.EnsureSuccessStatusCode();
+
         }
     }
     

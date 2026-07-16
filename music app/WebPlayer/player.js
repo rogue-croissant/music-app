@@ -37,7 +37,7 @@ function createPlayer() {
             cb(window.accessToken);
         }
     });
-
+    window.player = player;
     player.addListener("initialization_error", ({ message }) => {
         log("Initialization Error");
         log(message);
@@ -70,6 +70,16 @@ function createPlayer() {
       //  log("Connect returned:");
       //  log(success);
     });
+}
+async function togglePlayer() {
+    let state = await window.player.getCurrentState();
+
+    if (!state) return;
+
+    if (state.paused)
+        await window.player.resume();
+    else
+        await window.player.pause();
 }
 
 async function playTrack(uri) {

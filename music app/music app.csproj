@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MVVM\View\BlueBorder.png" />
+    <None Remove="MVVM\View\GreenBorder.png" />
+    <None Remove="MVVM\View\mainBorder.png" />
+    <None Remove="MVVM\View\PurpleBorder.png" />
     <None Remove="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
 	<ItemGroup>
@@ -24,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="MVVM\View\BlueBorder.png" />
+    <Resource Include="MVVM\View\GreenBorder.png" />
+    <Resource Include="MVVM\View\mainBorder.png" />
+    <Resource Include="MVVM\View\PurpleBorder.png" />
     <Resource Include="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
 

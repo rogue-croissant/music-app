@@ -11,15 +11,12 @@ namespace Music_app.MVVM.Model
     public class CurrentTrackResponse
     {
         [JsonPropertyName("item")]
-        public Tracks item { get; set; }
-
-        [JsonPropertyName("actions")]
-        public Actions actions { get; set; }
+        public Tracks Item { get; set; }
 
         [JsonPropertyName("is_playing")]
-        public bool isPlaying { get; set; }
+        public bool IsPlaying { get; set; }
 
         [JsonPropertyName("progress_ms")]
-        public int progress { get; set; }
+        public int Progress { get; set; }
     }
 }

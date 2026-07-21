@@ -65,7 +65,9 @@ function createPlayer() {
     player.addListener("not_ready", ({ device_id }) => {
         log("NOT READY");
     });
-
+    player.addListener("player_state_changed", state => {
+        log("State changed");
+    })
     player.connect().then(success => {
       //  log("Connect returned:");
       //  log(success);
@@ -86,6 +88,35 @@ async function togglePlayer() {
         await window.player.resume();
     else
         await window.player.pause();
+}
+async function logoutPlayer() {
+
+    if (player) {
+        await player.disconnect();
+        player = null;
+    }
+
+    player = null;
+    window.player = null;
+    window.deviceId = "";
+    window.accessToken = "";
+
+}
+async function playPlaylist(playlistUri, position) {
+    await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${window.deviceId}`,
+        {
+            method: "PUT",
+            headers: {
+                Authorization: "Bearer " + window.accessToken,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                context_uri: playlistUri,
+                offset: {
+                    position: position
+                }
+            })
+        });
 }
 
 async function playTrack(uri) {

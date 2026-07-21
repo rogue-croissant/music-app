@@ -31,23 +31,27 @@ namespace Music_app
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string username = "user1";
+        public Playlist currentPlaylist;
         private MainViewModel viewModel;
         public SpotifyApiServices apiService;
         private DispatcherTimer playerTimer;
         private bool updatingTrack = false;
         private string? currentTrackId = null;
+        private bool userDragging = false;
+        private bool seeking = false;
         public MainWindow()
         {
             InitializeComponent();
-            this.Closed += MainWindow_Closed;
-            this.Closing += MainWindow_Closing;
-
             viewModel = new MainViewModel();
             DataContext = viewModel;
 
             Loaded += MainWindow_Loaded;
-           
+
+            songProgress.IsEnabled = false;
+            btnBackwardSkip.IsEnabled = false;
+            btnForwardSkip.IsEnabled = false;
+            btnPauseAndPlay.IsEnabled = false;
+
         }
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -69,19 +73,7 @@ namespace Music_app
             
             string scripts = await SpotifyPlayer.ExecuteScriptAsync(@"Array.from(document.scripts).map(s => s.src).join('\n');");
         }
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            string msg = "Do you look like a twat?";
-            MessageBoxResult result = MessageBox.Show(msg, "my app", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
-        private void MainWindow_Closed(object sender, EventArgs e)
-        {
-            MessageBox.Show("bitch ass");
-        }
+
         private async void btnPauseAndPlay_Click(object sender, RoutedEventArgs e)
         {
             await SpotifyPlayer.ExecuteScriptAsync("togglePlayer();");
@@ -106,10 +98,6 @@ namespace Music_app
             WindowState = WindowState.Minimized;
         }
 
-        private void btnplaylist_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Playlist button eish", "my app", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
@@ -135,9 +123,11 @@ namespace Music_app
                 apiService = new SpotifyApiServices(accessToken);
            
                 List<Tracks> userTrack = await apiService.GetTrackAsync();
-              
                 List<Playlist> userPlaylist = await apiService.GetPlaylistAsync();
-                
+                UserProfile profile = await apiService.GetUserProfileAsync();
+
+                lblUsername.Content = profile.Name;
+
 
                 viewModel.Tracks.Clear();
 
@@ -161,10 +151,40 @@ namespace Music_app
                     deviceId = deviceId.Trim('"');
                 }
 
+                bool foundDevice = false;
+
+                while (!foundDevice)
+                {
+                    var devices = await apiService.GetDevicesAsync();
+
+                    foundDevice = devices.Any(d => d.Id == deviceId);
+
+                    if (!foundDevice)
+                        await Task.Delay(300);
+                }
+
+                // Check the playback state BEFORE transferring
+                CurrentTrackResponse? state = await apiService.GetCurrentTrackAsync();
+                bool wasPlaying = state?.IsPlaying ?? false;
+
+                // Transfer playback
                 await apiService.PutTransferPlaybackAsync(deviceId);
-                
+
+                // If Spotify was paused, keep your player paused too
+                if (!wasPlaying)
+                {
+                    await SpotifyPlayer.ExecuteScriptAsync("window.player.pause();");
+                }
+
                 await UpdateCurrentTrackUi();
                 StartPlayerTimer();
+
+                btnPlaylists.Visibility = Visibility.Visible;
+                songProgress.IsEnabled = true;
+                btnBackwardSkip.IsEnabled = true;
+                btnForwardSkip.IsEnabled = true;
+                btnPauseAndPlay.IsEnabled = true;
+
             }
             catch (Exception ex)
             {
@@ -172,25 +192,54 @@ namespace Music_app
             }
         }
 
-        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        private async void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
+            playerTimer.Stop();
+            await SpotifyPlayer.ExecuteScriptAsync("logoutPlayer()");
 
+            apiService = null;
+            currentTrackId = null;
+
+            viewModel.PlaylistTracks.Clear();
+            viewModel.Playlists.Clear();
+            viewModel.Tracks.Clear();
+
+            lblSongName.Content = "";
+            lblAuthor.Content = "";
+            lblPlaying.Content = string.Empty;
+
+            lblProgress.Content = "00:00";
+            lblDuration.Content = "00:00";
+            imgAlbumArt.Source = null;
+            songProgress.Value = 0;
+            songProgress.IsEnabled = false;
+            btnBackwardSkip.IsEnabled = false;
+            btnForwardSkip.IsEnabled = false;
+            btnPauseAndPlay.IsEnabled = false;
+
+            btnPlaylists.Visibility = Visibility.Collapsed;
+            btnLogIn.Visibility = Visibility.Visible;
+            btnLogOut.Visibility = Visibility.Collapsed;
         }
 
         private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Playlist selectedPlaylist = (Playlist)((ListView)sender).SelectedItem;
+           Playlist selectedPlaylist = (Playlist)((ListView)sender).SelectedItem;
             if (selectedPlaylist == null)
                 return;
             
-            popupTracks.IsOpen = true;
-           
+            popupTracks.IsOpen = false;
+            currentPlaylist = selectedPlaylist;
             List<Tracks> playlistTracks= await apiService.GetPlaylistTracksAsync(selectedPlaylist.Id);
             viewModel.PlaylistTracks.Clear();
             foreach (Tracks track in playlistTracks)
             {
                 viewModel.PlaylistTracks.Add(track);
             }
+
+            await Task.Delay(20);
+
+            popupTracks.IsOpen = true;
 
         }
 
@@ -230,16 +279,21 @@ namespace Music_app
         }
         public void updateSongProgress(CurrentTrackResponse current)
         {
-            TimeSpan duration = TimeSpan.FromMilliseconds(current.item.DurationMs);
-            TimeSpan progress = TimeSpan.FromMilliseconds(current.progress);
+            TimeSpan duration = TimeSpan.FromMilliseconds(current.Item.DurationMs);
+            TimeSpan progress = TimeSpan.FromMilliseconds(current.Progress);
             lblDuration.Content = duration.ToString(@"mm\:ss");
             lblProgress.Content = progress.ToString(@"mm\:ss");
 
             songProgress.Minimum = 0;
-            songProgress.Maximum = current.item.DurationMs;
-            songProgress.Value = current.progress;
+            songProgress.Maximum = current.Item.DurationMs;
 
-
+           if (!userDragging)
+            {
+                songProgress.Value = current.Progress;
+            }
+          
+                userDragging = false;
+               
         }
 
         private async Task UpdateCurrentTrackUi()
@@ -250,22 +304,22 @@ namespace Music_app
             try { 
                 updatingTrack = true;
 
-            CurrentTrackResponse current = await apiService.GetCurrentTrackAsync();
+            CurrentTrackResponse? current = await apiService.GetCurrentTrackAsync();
 
-            if (current.item.Id != currentTrackId)
+                if (current == null)
                 {
-                  //album
-                  //songName
-                  //Artist
-                    currentTrackId = current.item.Id;
-                    UpdateSongInformation(current.item);
+                    return;
                 }
-                //progressbar
-                //elapsed tiem
-                //pause/play state
+                if (current.Item.Id != currentTrackId)
+                {
+                    currentTrackId = current.Item.Id;
+                    UpdateSongInformation(current.Item);
+                }
 
-            updateSongProgress(current);
+                if (seeking)
+                    return;
 
+                updateSongProgress(current);
             }
             catch (Exception ex)
             {
@@ -275,7 +329,6 @@ namespace Music_app
             {
                 updatingTrack = false;
             }
-
         }
 
         private void StartPlayerTimer()
@@ -295,13 +348,15 @@ namespace Music_app
         {
             Tracks selectedTrack = (Tracks)((ListView)sender).SelectedItem;
             string artist = "";
-            
+            int selectedIndex = lvPlaylistTracks.SelectedIndex;
+
+           
             if (selectedTrack == null)
                 return;
 
             try
             {
-                await SpotifyPlayer.ExecuteScriptAsync($"playTrack('{selectedTrack.Uri}')");
+                await SpotifyPlayer.ExecuteScriptAsync($"playPlaylist('{currentPlaylist.Uri}', {selectedIndex});");
                 await Task.Delay(1000);
                 await UpdateCurrentTrackUi();
  
@@ -310,6 +365,25 @@ namespace Music_app
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+        private void Slider_DragStarted(object sender, DragStartedEventArgs e)
+        {
+            userDragging = true;
+        }
+
+        private async void Slider_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            seeking = true;
+            await apiService.SeekPlaybackAsync((int)songProgress.Value);
+            await Task.Delay(1000);
+
+            seeking = false;
+            
+        }
+
+        private void popupTracks_Closed(object sender, EventArgs e)
+        {
+            lvPlaylist.SelectedItem = null;
         }
     }
 }

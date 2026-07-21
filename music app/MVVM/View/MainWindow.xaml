@@ -5,150 +5,183 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Music_app" xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d" WindowStyle="None" 
-        Title="MainWindow" Height="550" Width="350" ResizeMode="NoResize"
-        MinHeight="500" MinWidth="350">
+        Title="MainWindow" Height="520" Width="350" ResizeMode="NoResize"
+        MinHeight="560" MinWidth="350">
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="20" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-    <Grid>
-        <Grid.RowDefinitions>
+    <Border Padding="10" Name="windowBorder">
+        <Border.Background>
+            <ImageBrush ImageSource="/MVVM/View/GreenBorder.png"/>
+        </Border.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="250"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+           
+            <Border x:Name="topBarBorder" CornerRadius="10,10,0,0"  Padding="5">
+                <Border.Background>
+                    <ImageBrush ImageSource="/MVVM/View/PurpleBorder.png"/>
+                </Border.Background>
+                <StackPanel  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
-        <StackPanel Background="Transparent"  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,4,2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,4,2">
 
-                <ToggleButton x:Name="btnSettings">Settings</ToggleButton>
-                <ToggleButton x:Name="btnPlaylists">Playlists</ToggleButton>
-                <ToggleButton x:Name="btnPlaylistsTracks">Playlists Tracks</ToggleButton>
-                <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
+                        <ToggleButton x:Name="btnSettings">Settings</ToggleButton>
+                        <ToggleButton x:Name="btnPlaylists" Visibility="Collapsed">Playlists</ToggleButton>
+
+                        <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
                         PlacementTarget="{Binding ElementName=btnPlaylists}"
                         StaysOpen="False"
-                        Placement="Bottom">
-
-                    <Border Background="White" 
+                        Placement="Bottom"
+                        Closed="popupTracks_Closed">
+                            <Border Background="White" 
                             BorderBrush="Gray" 
                             BorderThickness="1" 
                             Padding="10"
                             CornerRadius="3">
-                        <StackPanel Width="150">
-                            <ListView x:Name="lvPlaylist" ItemsSource="{Binding Playlists}" SelectionChanged="ListView_SelectionChanged">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
+                                <StackPanel Width="150">
+                                    <ListView x:Name="lvPlaylist" ItemsSource="{Binding Playlists}" SelectionChanged="ListView_SelectionChanged">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
 
-                                        <TextBlock Text="{Binding Name}"/>
+                                                <TextBlock Text="{Binding Name}"/>
 
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </Border>
-                </Popup>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
 
-                <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylistsTracks, Mode=TwoWay}"
-                    PlacementTarget="{Binding ElementName=btnPlaylistsTracks}"
-                    StaysOpen="False"
-                    Placement="Bottom">
-
-                    <Border Background="White" 
-                        BorderBrush="Gray" 
-                        BorderThickness="1" 
-                        Padding="10"
-                        CornerRadius="3">
-                        <StackPanel Width="150">
-                            <ListView x:Name="lvPlaylistTracks" ItemsSource="{Binding PlaylistTracks}" SelectionChanged="lvPlaylistTracks_SelectionChanged">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-
-                                        <TextBlock Text="{Binding Name}"/>
-
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </Border>
-                </Popup>
-
-                <Popup x:Name="popupTracks"
+                        <Popup 
+                        x:Name="popupTracks"
                         PlacementTarget="{Binding ElementName=lvPlaylist}"
                         Placement="Right"
-                        StaysOpen="False"/>
+                        StaysOpen="False">
+                            <Border Background="White" 
+                            BorderBrush="Gray" 
+                            BorderThickness="1" 
+                            Padding="10"
+                            CornerRadius="3">
+                                <StackPanel Width="150">
+                                    <ListView x:Name="lvPlaylistTracks" ItemsSource="{Binding PlaylistTracks}" SelectionChanged="lvPlaylistTracks_SelectionChanged">
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                                <Setter Property="FontWeight" Value="Normal"/>
+
+                                                <Style.Triggers>
+
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="LightSkyBlue"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="DodgerBlue"/>
+                                                        <Setter Property="Foreground" Value="White"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                    </Trigger>
+
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+
+                                    </ListView>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
 
 
-                <Popup IsOpen="{Binding IsChecked, ElementName=btnSettings, Mode=TwoWay}"
+                        <Popup IsOpen="{Binding IsChecked, ElementName=btnSettings, Mode=TwoWay}"
                        PlacementTarget="{Binding ElementName=btnSettings}"
                        StaysOpen="False"
                        Placement="Bottom">
 
-                    <Border Background="White" 
+                            <Border Background="White" 
                         BorderBrush="Gray" 
                         BorderThickness="1" 
                         Padding="10"
                         CornerRadius="3">
-                        <StackPanel Width="150">
-                            <Label Name="lblUsername" Content="Username"/>
-                            <Label Name="lblTheme" Content="Theme"/>
-                            <ToggleButton x:Name="btnDarkMode" Content="Dark Mode" Margin="0,0,0,5"/>
-                            <Label Name="lbllanguage" Content="Language"/>
-                            <RibbonToggleButton x:Name="btnEnglish" Content="English" Margin="0,0,0,5"/>
-                            <RibbonToggleButton x:Name="btnSpanish" Content="Spanish" Margin="0,0,0,5"/>
-                            <Label Name="lblProvider" Content="Provider"/>
-                            <Button Content="Spotify" Margin="0,0,0,5"/>
-                            <Button Content="YouTube" Margin="0,0,0,5"/>
+                                <StackPanel Width="150">
+                                    <Label Name="lblUsername" Content="Username"/>
+                                    <Label Name="lblTheme" Content="Theme"/>
+                                    <ToggleButton x:Name="btnDarkMode" Content="Dark Mode" Margin="0,0,0,5"/>
+                                    <Label Name="lbllanguage" Content="Language"/>
+                                    <RibbonToggleButton x:Name="btnEnglish" Content="English" Margin="0,0,0,5"/>
+                                    <RibbonToggleButton x:Name="btnSpanish" Content="Spanish" Margin="0,0,0,5"/>
+                                    <Label Name="lblProvider" Content="Provider"/>
+                                    <Button Content="Spotify" Margin="0,0,0,5"/>
+                                    <Button Content="YouTube" Margin="0,0,0,5"/>
 
-                            <Button x:Name="btnLogIn" Content="Log In" Click="btnLogIn_Click"  Visibility="Visible"/>
-                            <Button x:Name="btnLogOut" Content="Log Out" Click="btnLogOut_Click" Visibility="Collapsed"/>
-                        </StackPanel>
-                    </Border>
-                </Popup>
+                                    <Button x:Name="btnLogIn" Content="Log In" Click="btnLogIn_Click"  Visibility="Visible"/>
+                                    <Button x:Name="btnLogOut" Content="Log Out" Click="btnLogOut_Click" Visibility="Collapsed"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
 
-                <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click">-</Button>
-                <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>
-            </StackPanel>
-        </StackPanel>
-
-
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Aqua"  Grid.Row="1" >
-            <Image x:Name="themeArt"  Height="200" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"  Margin="0,25,0,0"/>
-        </StackPanel>
-
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Beige" Grid.Row="2">
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,20,50,10" Background="Yellow">
-
-                    <Image x:Name="imgAlbumArt" Height="80" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
-
-                    <StackPanel Width="Auto" Height="Auto" Background="HotPink">
-                    <Label x:Name="lblPlaying" Content="Now playing..." Width="Auto"/>
-                    <Label x:Name="lblAuthor" Content="Author" Width="Auto"/>
-                    <Label x:Name="lblSongName" Content="Song name" Width="Auto"/>
+                        <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click">-</Button>
+                        <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>
                     </StackPanel>
                 </StackPanel>
-                <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="auto" Margin="5,10,5,10"/>
-
-                <StackPanel HorizontalAlignment="Stretch" Height="Auto" Background="GreenYellow" Margin="5,5,5,10">
-                    <DockPanel LastChildFill="False">
-                        <Label x:Name="lblProgress" Content="00:00:00" Width="auto" DockPanel.Dock="Left"/>
-                        <Label x:Name="lblDuration" Content="00:00:00" Width="auto"  DockPanel.Dock="Right"/>
-                    </DockPanel>
+            </Border>
+            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10">
+                <Border.Background>
+                    <ImageBrush ImageSource="/MVVM/View/mainBorder.png"/>
+                </Border.Background>
+                <StackPanel>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" >
+                    <Image x:Name="themeArt"  Height="200" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"  Margin="0,25,0,0"/>
                 </StackPanel>
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,20,50,10" Background="Yellow">
 
-                <StackPanel  Orientation="Horizontal" Background="Purple" HorizontalAlignment="Center" Height="Auto" Margin="0,10,0,20">
-                <Button x:Name="btnBackwardSkip" Height="40" Width="Auto" Click="btnBackwardSkip_Click" Content="backward skip" Margin="5,0,0,0"/>
-                <Button x:Name="btnPauseAndPlay" Height="40" Width="Auto" Click="btnPauseAndPlay_Click" Content="pause and play" Margin="5,0,5,0"/>
-                <Button x:Name="btnForwardSkip" Height="40" Width="Auto" Click="btnForwardSkip_Click" Content="forward skip"  Margin="0,0,5,0"/>
+                            <Image x:Name="imgAlbumArt" Height="80" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
+
+                            <StackPanel Width="Auto" Height="Auto" Background="HotPink">
+                                <Label x:Name="lblPlaying" Content="Now playing..." Width="Auto"/>
+                                <Label x:Name="lblAuthor" Content="Author" Width="Auto"/>
+                                <Label x:Name="lblSongName" Content="Song name" Width="Auto"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel  Orientation="Horizontal" Background="Purple" HorizontalAlignment="Center" Height="Auto" Margin="0,10,0,20">
+                    <Button x:Name="btnBackwardSkip" Height="40" Width="Auto" Click="btnBackwardSkip_Click" Content="backward skip" Margin="5,0,0,0"/>
+                    <Button x:Name="btnPauseAndPlay" Height="40" Width="Auto" Click="btnPauseAndPlay_Click" Content="pause and play" Margin="5,0,5,0"/>
+                    <Button x:Name="btnForwardSkip" Height="40" Width="Auto" Click="btnForwardSkip_Click" Content="forward skip"  Margin="0,0,5,0"/>
+                </StackPanel>
+                        <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="auto" Margin="15,10,10,0" >
+                            <Slider.Resources>
+                                <Style TargetType="Thumb">
+                                    <EventSetter Event="DragStarted" Handler="Slider_DragStarted"/>
+                                    <EventSetter Event="DragCompleted" Handler="Slider_DragCompleted"/>
+                                </Style>
+                            </Slider.Resources>
+                        </Slider>
+                        <StackPanel HorizontalAlignment="Stretch" Height="Auto" Background="GreenYellow" Margin="15,5,15,21">
+                            <DockPanel LastChildFill="False">
+                                <Label x:Name="lblProgress" Content="00:00:00" Width="auto" DockPanel.Dock="Left"/>
+                                <Label x:Name="lblDuration" Content="00:00:00" Width="auto"  DockPanel.Dock="Right"/>
+                            </DockPanel>
+                        </StackPanel>
+                        <wv2:WebView2 x:Name="SpotifyPlayer" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"/>
             </StackPanel>
-            <wv2:WebView2
-    x:Name="SpotifyPlayer"
-    Width="300"
-    Height="200"
-    HorizontalAlignment="Center"
-    VerticalAlignment="Center"
-    Visibility="Visible"/>
-        </StackPanel>
+               
+                </StackPanel>
+            </Border>
+        </Grid>
         
-
-    </Grid>
+    </Border>
 </Window> 

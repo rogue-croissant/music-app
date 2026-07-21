@@ -17,6 +17,7 @@ namespace Music_app.MVVM.Services
     public class SpotifyApiServices
     {
         private readonly HttpClient _client;
+        public string userProfileUrl = "https://api.spotify.com/v1/me";
         public string trackUrl = "https://api.spotify.com/v1/me/tracks";
         public string playlistUrl = "https://api.spotify.com/v1/me/playlists";
         public string currentTrackUrl = "https://api.spotify.com/v1/me/player/currently-playing";
@@ -88,11 +89,14 @@ namespace Music_app.MVVM.Services
             return tracks;
         }
 
-        public async Task<CurrentTrackResponse> GetCurrentTrackAsync()
+        public async Task<CurrentTrackResponse?> GetCurrentTrackAsync()
         {
             HttpResponseMessage response = await _client.GetAsync(currentTrackUrl);
-            response.EnsureSuccessStatusCode();
+           
+            if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                return null;
 
+            response.EnsureSuccessStatusCode();
             string json = await response.Content.ReadAsStringAsync();
 
             CurrentTrackResponse result = JsonSerializer.Deserialize<CurrentTrackResponse>(json);
@@ -105,7 +109,7 @@ namespace Music_app.MVVM.Services
             var body = new
             {
                 device_ids = new[] { deviceId },
-                play = true
+                play = false
             };
 
             string json = JsonSerializer.Serialize(body);
@@ -118,8 +122,52 @@ namespace Music_app.MVVM.Services
                     transferPlaybackUrl,
                     content);
 
+           // response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                var bodys = await response.Content.ReadAsStringAsync();
+
+                MessageBox.Show(
+                    $"Status: {(int)response.StatusCode}\n\n{bodys}");
+            }
+        }
+        public async Task<List<MyDevice>> GetDevicesAsync()
+        {
+            HttpResponseMessage response =
+                await _client.GetAsync("https://api.spotify.com/v1/me/player/devices");
+
             response.EnsureSuccessStatusCode();
 
+            string json = await response.Content.ReadAsStringAsync();
+
+            MessageBox.Show(json);
+
+            MyDeviceResponse? result =
+                JsonSerializer.Deserialize<MyDeviceResponse>(json);
+            
+            return result.Devices;
+        }
+        public async Task SeekPlaybackAsync(int positionMs)
+        {
+            string url =
+                $"https://api.spotify.com/v1/me/player/seek?position_ms={positionMs}";
+
+            HttpResponseMessage response =
+                await _client.PutAsync(url, null);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<UserProfile> GetUserProfileAsync()
+        {
+            HttpResponseMessage response = await _client.GetAsync(userProfileUrl);
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+
+            UserProfile profile = JsonSerializer.Deserialize<UserProfile>(json);
+
+            return profile;
         }
     }
     

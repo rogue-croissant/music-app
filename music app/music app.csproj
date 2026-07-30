@@ -10,9 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MVVM\View\Backwards.png" />
     <None Remove="MVVM\View\BlueBorder.png" />
+    <None Remove="MVVM\View\botton.png" />
+    <None Remove="MVVM\View\Forward.png" />
     <None Remove="MVVM\View\GreenBorder.png" />
     <None Remove="MVVM\View\mainBorder.png" />
+    <None Remove="MVVM\View\Pause.png" />
+    <None Remove="MVVM\View\playIcon.png" />
     <None Remove="MVVM\View\PurpleBorder.png" />
     <None Remove="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
@@ -20,6 +25,11 @@
 		<Content Include="WebPlayer\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="MVVM\View\Backwards.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4078.44" />
@@ -29,10 +39,25 @@
 
   <ItemGroup>
     <Resource Include="MVVM\View\BlueBorder.png" />
+    <Resource Include="MVVM\View\botton.png" />
+    <Resource Include="MVVM\View\Forward.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="MVVM\View\GreenBorder.png" />
     <Resource Include="MVVM\View\mainBorder.png" />
+    <Resource Include="MVVM\View\Pause.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MVVM\View\playIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="MVVM\View\PurpleBorder.png" />
     <Resource Include="MVVM\View\Uramichi oniisan KOTORI.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Styles\" />
+    <Folder Include="Resources\Themes\" />
   </ItemGroup>
 
 </Project>

@@ -38,3 +38,6 @@ C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Micro
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\WebPlayer\index.html
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\WebPlayer\player.js
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Buttons.baml
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\App.baml
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Images.baml

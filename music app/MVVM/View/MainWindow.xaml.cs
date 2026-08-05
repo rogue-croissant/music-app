@@ -39,6 +39,9 @@ namespace Music_app
         private string? currentTrackId = null;
         private bool userDragging = false;
         private bool seeking = false;
+
+        private string mySongName;
+        private string myArtistName;
         public MainWindow()
         {
             InitializeComponent();
@@ -76,7 +79,13 @@ namespace Music_app
 
         private async void btnPauseAndPlay_Click(object sender, RoutedEventArgs e)
         {
+          
+ 
             await SpotifyPlayer.ExecuteScriptAsync("togglePlayer();");
+
+            CurrentTrackResponse current = await apiService.GetCurrentTrackAsync();
+
+            btnPauseAndPlay.Tag = current.IsPlaying ? FindResource("PlayIcon") : FindResource("PauseIcon");
 
         }
         private async void btnForwardSkip_Click(object sender, RoutedEventArgs e)
@@ -204,13 +213,13 @@ namespace Music_app
             viewModel.Playlists.Clear();
             viewModel.Tracks.Clear();
 
-            lblSongName.Content = "";
-            lblAuthor.Content = "";
-            lblPlaying.Content = string.Empty;
+           // lblSongName.Content = "";
+          //  lblAuthor.Content = "";
+          //  lblPlaying.Content = string.Empty;
 
             lblProgress.Content = "00:00";
             lblDuration.Content = "00:00";
-            imgAlbumArt.Source = null;
+            imgAlbumArt.ImageSource = null;
             songProgress.Value = 0;
             songProgress.IsEnabled = false;
             btnBackwardSkip.IsEnabled = false;
@@ -248,7 +257,8 @@ namespace Music_app
             string artist = "";
             if (current == null) return;
 
-            lblSongName.Content = current.Name;
+          //  lblSongName.Content = current.Name;
+            mySongName = current.Name;
     
             for (int i = 0; i < current.Artists.Count; i++)
             {
@@ -262,8 +272,11 @@ namespace Music_app
                 }
             }
 
-            lblAuthor.Content = artist;
-
+           // lblAuthor.Content = artist;
+            myArtistName = artist;
+            myContent.Text = "Now Playing...";
+            txtArtist.Text = artist;
+            txtSongName.Text = mySongName;
             if (current.Album.Images.Count > 0)
             {
                 BitmapImage bitmap = new BitmapImage();
@@ -274,7 +287,7 @@ namespace Music_app
                 bitmap.EndInit();
                
 
-                imgAlbumArt.Source = bitmap;
+                imgAlbumArt.ImageSource = bitmap;
             }
         }
         public void updateSongProgress(CurrentTrackResponse current)

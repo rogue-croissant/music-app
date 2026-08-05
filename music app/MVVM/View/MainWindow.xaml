@@ -28,10 +28,10 @@
                 </Border.Background>
                 <StackPanel  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,4,2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,4,2">
 
-                        <ToggleButton x:Name="btnSettings">Settings</ToggleButton>
-                        <ToggleButton x:Name="btnPlaylists" Visibility="Collapsed">Playlists</ToggleButton>
+                        <ToggleButton x:Name="btnSettings" Style="{StaticResource SettingsButtonStyle}" Tag="{StaticResource SettingsIcon}" Margin="0,0,5,0"/>
+                        <ToggleButton x:Name="btnPlaylists" Visibility="Collapsed" Margin="0,0,5,0">Playlists</ToggleButton>
 
                         <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
                         PlacementTarget="{Binding ElementName=btnPlaylists}"
@@ -133,47 +133,52 @@
                             </Border>
                         </Popup>
 
-                        <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click" >-</Button>
+                        <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click"  Margin="0,0,3,0">-</Button>
                         <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10">
+            
+            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10" BorderThickness="5" BorderBrush="Aquamarine">
                 <Border.Background>
                     <ImageBrush ImageSource="/MVVM/View/mainBorder.png"/>
                 </Border.Background>
+                
                 <StackPanel>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" >
-                    <Image x:Name="themeArt"  Height="200" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"  Margin="0,25,0,0"/>
-                </StackPanel>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="270" Grid.Row="1" >
+                        <Image x:Name="themeArt"  Height="auto" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"  Margin="0,0,0,0"/>
+                    </StackPanel>
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,20,50,10" Background="Yellow">
-
-                            <Image x:Name="imgAlbumArt" Height="80" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
-
-                            <StackPanel Width="Auto" Height="Auto" Background="HotPink">
-                                <Label x:Name="lblPlaying" Content="Now playing..." Width="Auto"/>
-                                <Label x:Name="lblAuthor" Content="Author" Width="Auto"/>
-                                <Label x:Name="lblSongName" Content="Song name" Width="Auto"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,10,0,10" Background="Transparent">
+                            <Border CornerRadius="10" Width="65" Height="65">
+                                <Border.Background>
+                                <ImageBrush x:Name="imgAlbumArt" Stretch="UniformToFill" ImageSource="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Width="160" Height="65" Background="Transparent" >
+                                <TextBlock x:Name="myContent" Text="connect to your provider hahahahahaha" TextWrapping="NoWrap" Padding="7,5,0,0"/>
+                                <TextBlock x:Name="txtSongName" Text="Song Name" FontWeight="Bold" FontSize="15" TextWrapping="NoWrap" Padding="7,5,0,0"/>
+                                <TextBlock x:Name="txtArtist" Text="Artist" TextWrapping="NoWrap" Padding="7,0,0,0"/>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel  Orientation="Horizontal" Background="pink" HorizontalAlignment="Center" Height="Auto" Margin="0,10,0,20">
+                        <StackPanel  Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Center" Height="Auto" Margin="0,10,0,10">
                             <Button x:Name="btnBackwardSkip" Style="{StaticResource BackButtonStyle}" Tag="{StaticResource BackIcon}" Click="btnBackwardSkip_Click"  Margin="5,0,20,0"/>
-                            <Button x:Name="btnPauseAndPlay" Style="{StaticResource PauseButtonStyle}" Tag="{StaticResource PauseIcon}" Click="btnPauseAndPlay_Click"  Margin="5,0,5,0"/>
+                            <Button x:Name="btnPauseAndPlay" Style="{StaticResource PauseButtonStyle}" Tag="{StaticResource PlayIcon}" Click="btnPauseAndPlay_Click"  Margin="5,0,5,0"/>
                                 <Button x:Name="btnForwardSkip" Style="{StaticResource ForwardButtonStyle}" Tag="{StaticResource ForwardIcon}"  Click="btnForwardSkip_Click" Margin="20,0,5,0"/>
                         </StackPanel>
-                        <Slider x:Name="songProgress" Minimum="0" Maximum="100" Width="auto" Margin="15,10,10,0" >
+                        <Slider x:Name="songProgress" Style="{StaticResource CuteSlider}" Tag="{StaticResource StarIcon}" Minimum="0" Maximum="100" Width="auto" Margin="15,0,10,0" >
                             <Slider.Resources>
                                 <Style TargetType="Thumb">
                                     <EventSetter Event="DragStarted" Handler="Slider_DragStarted"/>
                                     <EventSetter Event="DragCompleted" Handler="Slider_DragCompleted"/>
                                 </Style>
                             </Slider.Resources>
+                           
                         </Slider>
-                        <StackPanel HorizontalAlignment="Stretch" Height="Auto" Background="GreenYellow" Margin="15,5,15,21">
+                        <StackPanel HorizontalAlignment="Stretch" Height="Auto" Background="Transparent" Margin="15,-5,15,15">
                             <DockPanel LastChildFill="False">
-                                <Label x:Name="lblProgress" Content="00:00:00" Width="auto" DockPanel.Dock="Left"/>
-                                <Label x:Name="lblDuration" Content="00:00:00" Width="auto"  DockPanel.Dock="Right"/>
+                                <Label x:Name="lblProgress" Content="00:00" Width="auto" DockPanel.Dock="Left"/>
+                                <Label x:Name="lblDuration" Content="00:00" Width="auto"  DockPanel.Dock="Right"/>
                             </DockPanel>
                         </StackPanel>
                         <wv2:WebView2 x:Name="SpotifyPlayer" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"/>

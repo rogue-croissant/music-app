@@ -2,12 +2,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <BitmapImage x:Key="BackIcon"
-                 UriSource="/MVVM/View/Backwards.png"/>
+                 UriSource="/MVVM/View/procreateIcons/backwardsIcon.png"/>
 
     <BitmapImage x:Key="PauseIcon"
-                 UriSource="/MVVM/View/Pause.png"/>
+                 UriSource="/MVVM/View/procreateIcons/pauseIcon.png"/>
 
     <BitmapImage x:Key="ForwardIcon"
-                 UriSource="/MVVM/View/Forward.png"/>
+                 UriSource="/MVVM/View/procreateIcons/forwardsIcon.png"/>
+
+    <BitmapImage x:Key="PlayIcon"
+                 UriSource="/MVVM/View/procreateIcons/playIcon.png"/>
+
+    <BitmapImage x:Key="StarIcon"
+                 UriSource="/MVVM/VIew/ProcreateIcons/starIcon.png"/>
+    
+    <BitmapImage x:Key="SettingsIcon"
+              UriSource="/MVVM/VIew/ProcreateIcons/settingsIcon.png"/>
 
 </ResourceDictionary>

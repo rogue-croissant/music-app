@@ -41,3 +41,4 @@ C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\WebPl
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Buttons.baml
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\App.baml
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Images.baml
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Slider.baml

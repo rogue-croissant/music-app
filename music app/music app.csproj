@@ -18,6 +18,13 @@
     <None Remove="MVVM\View\mainBorder.png" />
     <None Remove="MVVM\View\Pause.png" />
     <None Remove="MVVM\View\playIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\backwardsIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\forwardsIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\h.png" />
+    <None Remove="MVVM\View\procreateIcons\pauseIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\playIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\settingsIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\starIcon.png" />
     <None Remove="MVVM\View\PurpleBorder.png" />
     <None Remove="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
@@ -25,6 +32,18 @@
 		<Content Include="WebPlayer\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="MVVM\View\procreate icons\**" />
+	  <EmbeddedResource Remove="MVVM\View\procreate icons\**" />
+	  <None Remove="MVVM\View\procreate icons\**" />
+	  <Page Remove="MVVM\View\procreate icons\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="MVVM\View\procreateIcons\backwardsIcon.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\pauseIcon.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Resource Include="MVVM\View\Backwards.png">
@@ -49,6 +68,18 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="MVVM\View\playIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MVVM\View\procreateIcons\forwardsIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MVVM\View\procreateIcons\playIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MVVM\View\procreateIcons\settingsIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MVVM\View\procreateIcons\starIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="MVVM\View\PurpleBorder.png" />

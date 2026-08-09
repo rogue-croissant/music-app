@@ -10,28 +10,25 @@
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="20" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-    <Border Padding="10" Name="windowBorder">
+    <Border Padding="0" Name="windowBorder" BorderThickness="0" BorderBrush="#EBCBCF">
         <Border.Background>
-            <ImageBrush ImageSource="/MVVM/View/GreenBorder.png"/>
+            <ImageBrush ImageSource="/MVVM/View/procreateIcons/Border.png"/>
         </Border.Background>
-
         <Grid>
             <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="250"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
            
-            <Border x:Name="topBarBorder" CornerRadius="10,10,0,0"  Padding="5">
-                <Border.Background>
-                    <ImageBrush ImageSource="/MVVM/View/PurpleBorder.png"/>
-                </Border.Background>
+            <Border x:Name="topBarBorder" CornerRadius="10,10,0,0"  Padding="5,17,13,0">
+                
                 <StackPanel  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,4,2">
 
                         <ToggleButton x:Name="btnSettings" Style="{StaticResource SettingsButtonStyle}" Tag="{StaticResource SettingsIcon}" Margin="0,0,5,0"/>
-                        <ToggleButton x:Name="btnPlaylists" Visibility="Collapsed" Margin="0,0,5,0">Playlists</ToggleButton>
+                        <ToggleButton x:Name="btnPlaylists" Visibility="Collapsed" Style="{StaticResource PlaylistButtonStyle}" Tag="{StaticResource PlaylistIcon}" Margin="0,0,5,0"/>
 
                         <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
                         PlacementTarget="{Binding ElementName=btnPlaylists}"
@@ -138,15 +135,13 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            
-            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10" BorderThickness="5" BorderBrush="Aquamarine">
-                <Border.Background>
-                    <ImageBrush ImageSource="/MVVM/View/mainBorder.png"/>
-                </Border.Background>
+
+            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10" BorderThickness="0" BorderBrush="#E2ADC1">
+                
                 
                 <StackPanel>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="270" Grid.Row="1" >
-                        <Image x:Name="themeArt"  Height="auto" Source="/MVVM/View/Uramichi oniisan KOTORI.jpg"  Margin="0,0,0,0"/>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="297" Grid.Row="1" >
+                        <Image x:Name="themeArt"  Height="auto" Source="/MVVM/View/procreateIcons/playerImage.png"   Margin="0,0,0,0"/>
                     </StackPanel>
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,10,0,10" Background="Transparent">
@@ -156,7 +151,7 @@
                                 </Border.Background>
                             </Border>
                             <StackPanel Width="160" Height="65" Background="Transparent" >
-                                <TextBlock x:Name="myContent" Text="connect to your provider hahahahahaha" TextWrapping="NoWrap" Padding="7,5,0,0"/>
+                                <TextBlock x:Name="myContent" Text="connect to your provider" TextWrapping="NoWrap" Padding="7,5,0,0"/>
                                 <TextBlock x:Name="txtSongName" Text="Song Name" FontWeight="Bold" FontSize="15" TextWrapping="NoWrap" Padding="7,5,0,0"/>
                                 <TextBlock x:Name="txtArtist" Text="Artist" TextWrapping="NoWrap" Padding="7,0,0,0"/>
                             </StackPanel>
@@ -181,7 +176,7 @@
                                 <Label x:Name="lblDuration" Content="00:00" Width="auto"  DockPanel.Dock="Right"/>
                             </DockPanel>
                         </StackPanel>
-                        <wv2:WebView2 x:Name="SpotifyPlayer" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"/>
+                        <wv2:WebView2 x:Name="SpotifyPlayer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="0" Width="0" Visibility="Visible"/>
             </StackPanel>
                
                 </StackPanel>

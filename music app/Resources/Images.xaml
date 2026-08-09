@@ -19,4 +19,7 @@
     <BitmapImage x:Key="SettingsIcon"
               UriSource="/MVVM/VIew/ProcreateIcons/settingsIcon.png"/>
 
+    <BitmapImage x:Key="PlaylistIcon"
+           UriSource="/MVVM/VIew/ProcreateIcons/playlistIcon.png"/>
+
 </ResourceDictionary>

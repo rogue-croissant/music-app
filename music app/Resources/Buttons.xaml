@@ -50,8 +50,8 @@
 
                         <Image
                         Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                        Width="30"
-                        Height="30"
+                        Width="25"
+                        Height="25"
                         Stretch="Uniform"
                         RenderOptions.BitmapScalingMode="HighQuality"
                         HorizontalAlignment="Center"
@@ -111,6 +111,19 @@
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush ImageSource="{StaticResource SettingsIcon}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="PlaylistButtonStyle"
+   TargetType="ToggleButton"
+   BasedOn="{StaticResource btnBarStyle}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="{StaticResource PlaylistIcon}"/>
             </Setter.Value>
         </Setter>
     </Style>

@@ -19,10 +19,13 @@
     <None Remove="MVVM\View\Pause.png" />
     <None Remove="MVVM\View\playIcon.png" />
     <None Remove="MVVM\View\procreateIcons\backwardsIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\Border.png" />
     <None Remove="MVVM\View\procreateIcons\forwardsIcon.png" />
     <None Remove="MVVM\View\procreateIcons\h.png" />
     <None Remove="MVVM\View\procreateIcons\pauseIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\playerImage.png" />
     <None Remove="MVVM\View\procreateIcons\playIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\playlistIcon.png" />
     <None Remove="MVVM\View\procreateIcons\settingsIcon.png" />
     <None Remove="MVVM\View\procreateIcons\starIcon.png" />
     <None Remove="MVVM\View\PurpleBorder.png" />
@@ -41,6 +44,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Resource Include="MVVM\View\procreateIcons\backwardsIcon.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\Border.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="MVVM\View\procreateIcons\pauseIcon.png" />
@@ -73,7 +79,13 @@
     <Resource Include="MVVM\View\procreateIcons\forwardsIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="MVVM\View\procreateIcons\playerImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="MVVM\View\procreateIcons\playIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="MVVM\View\procreateIcons\playlistIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="MVVM\View\procreateIcons\settingsIcon.png">

@@ -9,6 +9,10 @@
                 <ResourceDictionary Source="\Resources\Images.xaml"/>
                 <ResourceDictionary Source="\Resources\Buttons.xaml"/>
                 <ResourceDictionary Source="\Resources\Slider.xaml"/>
+                <ResourceDictionary Source="\Resources\ToggleButtons.xaml"/>
+                <ResourceDictionary Source="\Resources\PopupWindows.xaml"/>
+                <ResourceDictionary Source="\Resources\AfrikaansStringResource.xaml"/>
+                <ResourceDictionary Source="\Resources\EnglishStringResource.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

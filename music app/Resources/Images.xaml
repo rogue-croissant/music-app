@@ -22,4 +22,14 @@
     <BitmapImage x:Key="PlaylistIcon"
            UriSource="/MVVM/VIew/ProcreateIcons/playlistIcon.png"/>
 
+    <BitmapImage x:Key="MinIcon"
+       UriSource="/MVVM/VIew/ProcreateIcons/minIcon.png"/>
+    
+    <BitmapImage x:Key="ExitIcon"
+       UriSource="/MVVM/VIew/ProcreateIcons/exitIcon.png"/>
+
+    <BitmapImage x:Key="VolumeIcon"
+                 UriSource="/MVVM/VIew/ProcreateIcons/volumeIcon.png"/>
+
+
 </ResourceDictionary>

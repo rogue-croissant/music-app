@@ -7,22 +7,22 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Slider">
                     <Grid>
-                        <ProgressBar BorderBrush="Transparent" BorderThickness="8" Background="Blue"/>
-                        
-                        <Track x:Name="PART_Track">
+                        <Border BorderBrush="#373C6F" BorderThickness="1" Background="#C2A5F2" CornerRadius="6" Height="12"/>
+                        <Rectangle x:Name="myRectangleTrack"/>
+                        <Track x:Name="PART_Track" >
                             <Track.Thumb>
                                 <Thumb>
                                     <Thumb.Template>
                                         <ControlTemplate TargetType="Thumb">
                                             <Image                                       
-                                                Source="{Binding Tag,
-                                                         RelativeSource={RelativeSource AncestorType=Slider}}" 
-                                                Width="25"
-                                                Height="25"
-                                                Stretch="Uniform"
-                                                HorizontalAlignment="Center"
-                                                RenderOptions.BitmapScalingMode="HighQuality"
-                                                VerticalAlignment="Center"/>       
+                                             Source="{Binding Tag,
+                                                      RelativeSource={RelativeSource AncestorType=Slider}}" 
+                                             Width="25"
+                                             Height="25"
+                                             Stretch="Uniform"
+                                             HorizontalAlignment="Center"
+                                             RenderOptions.BitmapScalingMode="HighQuality"
+                                             VerticalAlignment="Center"/>
                                         </ControlTemplate>
                                     </Thumb.Template>
                                 </Thumb>
@@ -33,4 +33,37 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="Slider" x:Key="OtherCuteSlider">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid>
+                        <Border BorderBrush="#373C6F" BorderThickness="1" Background="#C2A5F2" CornerRadius="6" Width="12"/>
+                        <Rectangle x:Name="myRectangleTrack" />
+                        <Track x:Name="PART_Track" >
+                            <Track.Thumb>
+                                <Thumb>
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Image                                       
+                                             Source="{Binding Tag,
+                                                      RelativeSource={RelativeSource AncestorType=Slider}}" 
+                                             Width="25"
+                                             Height="25"
+                                             Stretch="Uniform"
+                                             HorizontalAlignment="Center"
+                                             RenderOptions.BitmapScalingMode="HighQuality"
+                                             VerticalAlignment="Center"/>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

@@ -2,6 +2,38 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
+      "AnimatedImage/2.1.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/AnimatedImage.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/AnimatedImage.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "AnimatedImage.Wpf/2.1.4": {
+        "type": "package",
+        "dependencies": {
+          "AnimatedImage": "2.1.4"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/AnimatedImage.Wpf.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/AnimatedImage.Wpf.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "EmbedIO/3.5.2": {
         "type": "package",
         "dependencies": {
@@ -35,6 +67,28 @@
           "runtimes/win-x86/native/WebView2Loader.dll": {
             "assetType": "native",
             "rid": "win-x86"
+          }
+        }
+      },
+      "Microsoft.Win32.SystemEvents/10.0.12": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "assetType": "runtime",
+            "rid": "win"
           }
         }
       },
@@ -84,6 +138,37 @@
           }
         }
       },
+      "System.Drawing.Common/10.0.12": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "10.0.12"
+        },
+        "compile": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net8.0/System.Private.Windows.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0/System.Private.Windows.GdiPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net8.0/System.Private.Windows.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0/System.Private.Windows.GdiPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
       "System.ValueTuple/4.5.0": {
         "type": "package",
         "compile": {
@@ -112,6 +197,58 @@
     }
   },
   "libraries": {
+    "AnimatedImage/2.1.4": {
+      "sha512": "heiP4rOzTeLRcA3JdU9SE2anO15N0qlLAEQY47nZQ443JWkr1K8CQYzZkabGbowuBt14wg4u8bAnTMUkDUUNlw==",
+      "type": "package",
+      "path": "animatedimage/2.1.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "AnimatedImage.md",
+        "animatedimage.2.1.4.nupkg.sha512",
+        "animatedimage.nuspec",
+        "lib/net10.0/AnimatedImage.dll",
+        "lib/net10.0/AnimatedImage.pdb",
+        "lib/net10.0/AnimatedImage.xml",
+        "lib/net462/AnimatedImage.dll",
+        "lib/net462/AnimatedImage.pdb",
+        "lib/net462/AnimatedImage.xml",
+        "lib/net472/AnimatedImage.dll",
+        "lib/net472/AnimatedImage.pdb",
+        "lib/net472/AnimatedImage.xml",
+        "lib/net8.0/AnimatedImage.dll",
+        "lib/net8.0/AnimatedImage.pdb",
+        "lib/net8.0/AnimatedImage.xml",
+        "lib/net9.0/AnimatedImage.dll",
+        "lib/net9.0/AnimatedImage.pdb",
+        "lib/net9.0/AnimatedImage.xml",
+        "lib/netcoreapp3.1/AnimatedImage.dll",
+        "lib/netcoreapp3.1/AnimatedImage.pdb",
+        "lib/netcoreapp3.1/AnimatedImage.xml"
+      ]
+    },
+    "AnimatedImage.Wpf/2.1.4": {
+      "sha512": "DFesk0BU0pgV8wO4YqnkUc3ZRUrSHF+wyf4njjHnAaA2qJ2Ukx0gzSANIhGAGSUyE6EeKig/xgqPRY0j3rglJw==",
+      "type": "package",
+      "path": "animatedimage.wpf/2.1.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "AnimatedImage.Wpf.md",
+        "animatedimage.wpf.2.1.4.nupkg.sha512",
+        "animatedimage.wpf.nuspec",
+        "lib/net462/AnimatedImage.Wpf.dll",
+        "lib/net462/AnimatedImage.Wpf.xml",
+        "lib/net472/AnimatedImage.Wpf.dll",
+        "lib/net472/AnimatedImage.Wpf.xml",
+        "lib/net6.0-windows7.0/AnimatedImage.Wpf.dll",
+        "lib/net6.0-windows7.0/AnimatedImage.Wpf.xml",
+        "lib/net9.0-windows7.0/AnimatedImage.Wpf.dll",
+        "lib/net9.0-windows7.0/AnimatedImage.Wpf.xml",
+        "lib/netcoreapp3.1/AnimatedImage.Wpf.dll",
+        "lib/netcoreapp3.1/AnimatedImage.Wpf.xml"
+      ]
+    },
     "EmbedIO/3.5.2": {
       "sha512": "YU4j+3XvuO8/VPkNf7KWOF1TpMhnyVhXnPsG1mvnDhTJ9D5BZOFXVDvCpE/SkQ1AJ0Aa+dXOVSW3ntgmLL7aJg==",
       "type": "package",
@@ -223,6 +360,41 @@
         "tools/wv2winrt/zh-Hant/System.CommandLine.resources.dll"
       ]
     },
+    "Microsoft.Win32.SystemEvents/10.0.12": {
+      "sha512": "kdj5cqOwgZCMltEhQ4+WVUoFkMHG08EJfy1MDyS9H+FBg66vTTFyX8YcNl8IQh5wRQv79P+iduQgDGY8ucBR+w==",
+      "type": "package",
+      "path": "microsoft.win32.systemevents/10.0.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
+        "lib/net10.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net10.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/net462/Microsoft.Win32.SystemEvents.dll",
+        "lib/net462/Microsoft.Win32.SystemEvents.xml",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/net9.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net9.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
+        "microsoft.win32.systemevents.10.0.12.nupkg.sha512",
+        "microsoft.win32.systemevents.nuspec",
+        "runtimes/win/lib/net10.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net10.0/Microsoft.Win32.SystemEvents.xml",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.xml",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -299,6 +471,59 @@
         "spotifyapi.web.auth.nuspec"
       ]
     },
+    "System.Drawing.Common/10.0.12": {
+      "sha512": "FBUxiucg2gsnyItbpGgyXI5u8FYLcqdLKS1XJkHHTj3RK1c6kpsJr/Y9i4edUNF7LqCYFrHqpHEvpt8/lNBe9w==",
+      "type": "package",
+      "path": "system.drawing.common/10.0.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Drawing.Common.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Drawing.Common.targets",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net10.0/System.Drawing.Common.dll",
+        "lib/net10.0/System.Drawing.Common.pdb",
+        "lib/net10.0/System.Drawing.Common.xml",
+        "lib/net10.0/System.Private.Windows.Core.dll",
+        "lib/net10.0/System.Private.Windows.Core.xml",
+        "lib/net10.0/System.Private.Windows.GdiPlus.dll",
+        "lib/net10.0/System.Private.Windows.GdiPlus.xml",
+        "lib/net462/System.Drawing.Common.dll",
+        "lib/net462/System.Drawing.Common.pdb",
+        "lib/net462/System.Drawing.Common.xml",
+        "lib/net8.0/System.Drawing.Common.dll",
+        "lib/net8.0/System.Drawing.Common.pdb",
+        "lib/net8.0/System.Drawing.Common.xml",
+        "lib/net8.0/System.Private.Windows.Core.dll",
+        "lib/net8.0/System.Private.Windows.Core.xml",
+        "lib/net8.0/System.Private.Windows.GdiPlus.dll",
+        "lib/net8.0/System.Private.Windows.GdiPlus.xml",
+        "lib/net9.0/System.Drawing.Common.dll",
+        "lib/net9.0/System.Drawing.Common.pdb",
+        "lib/net9.0/System.Drawing.Common.xml",
+        "lib/net9.0/System.Private.Windows.Core.dll",
+        "lib/net9.0/System.Private.Windows.Core.xml",
+        "lib/net9.0/System.Private.Windows.GdiPlus.dll",
+        "lib/net9.0/System.Private.Windows.GdiPlus.xml",
+        "lib/netstandard2.0/System.Drawing.Common.dll",
+        "lib/netstandard2.0/System.Drawing.Common.pdb",
+        "lib/netstandard2.0/System.Drawing.Common.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "system.drawing.common.10.0.12.nupkg.sha512",
+        "system.drawing.common.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.ValueTuple/4.5.0": {
       "sha512": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
       "type": "package",
@@ -361,9 +586,11 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
+      "AnimatedImage.Wpf >= 2.1.4",
       "Microsoft.Web.WebView2 >= 1.0.4078.44",
       "SpotifyAPI.Web >= 7.4.2",
-      "SpotifyAPI.Web.Auth >= 7.4.2"
+      "SpotifyAPI.Web.Auth >= 7.4.2",
+      "System.Drawing.Common >= 10.0.12"
     ]
   },
   "packageFolders": {
@@ -417,6 +644,10 @@
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
         "dependencies": {
+          "AnimatedImage.Wpf": {
+            "target": "Package",
+            "version": "[2.1.4, )"
+          },
           "Microsoft.Web.WebView2": {
             "target": "Package",
             "version": "[1.0.4078.44, )"
@@ -428,6 +659,10 @@
           "SpotifyAPI.Web.Auth": {
             "target": "Package",
             "version": "[7.4.2, )"
+          },
+          "System.Drawing.Common": {
+            "target": "Package",
+            "version": "[10.0.12, )"
           }
         },
         "imports": [

@@ -42,3 +42,14 @@ C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resou
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\App.baml
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Images.baml
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\Slider.baml
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Win32.SystemEvents.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Drawing.Common.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Private.Windows.Core.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Private.Windows.GdiPlus.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\AnimatedImage.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\AnimatedImage.Wpf.dll
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\ToggleButtons.baml
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\PopupWindows.baml
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\AfrikaansStringResource.baml
+C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Resources\EnglishStringResource.baml

@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Music_app" xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d" WindowStyle="None" 
-        Title="MainWindow" Height="520" Width="350" ResizeMode="NoResize"
-        MinHeight="560" MinWidth="350">
+        Title="MainWindow" Height="580" Width="350" ResizeMode="NoResize"
+        MinHeight="560" MinWidth="350" Background="Transparent">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="20" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-    <Border Padding="0" Name="windowBorder" BorderThickness="0" BorderBrush="#EBCBCF">
+    <Border Padding="0" Name="windowBorder" BorderThickness="0" BorderBrush="AliceBlue">
         <Border.Background>
-            <ImageBrush ImageSource="/MVVM/View/procreateIcons/Border.png"/>
+            <ImageBrush ImageSource="/MVVM/View/procreateIcons/Border.png" RenderOptions.BitmapScalingMode="HighQuality"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
@@ -21,25 +21,48 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
            
-            <Border x:Name="topBarBorder" CornerRadius="10,10,0,0"  Padding="5,17,13,0">
+            <Border x:Name="topBarBorder" CornerRadius="10,10,0,0"  Padding="5,13,8, 0">
                 
                 <StackPanel  HorizontalAlignment="Stretch"  Grid.Row="0"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,4,2">
-
+                       
+                        <Label x:Name="lblPlayerName" Content="My player Name" HorizontalAlignment="Left" Margin="0,0,120,0" />
+                       
+                        
                         <ToggleButton x:Name="btnSettings" Style="{StaticResource SettingsButtonStyle}" Tag="{StaticResource SettingsIcon}" Margin="0,0,5,0"/>
                         <ToggleButton x:Name="btnPlaylists" Visibility="Collapsed" Style="{StaticResource PlaylistButtonStyle}" Tag="{StaticResource PlaylistIcon}" Margin="0,0,5,0"/>
+                        <ToggleButton x:Name="btnVolume" Visibility="Collapsed" Style="{StaticResource VolumeButtonStyle}" Tag="{StaticResource VolumeIcon}" Margin="0,0,5,0" />
 
-                        <Popup IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
-                        PlacementTarget="{Binding ElementName=btnPlaylists}"
-                        StaysOpen="False"
-                        Placement="Bottom"
-                        Closed="popupTracks_Closed">
-                            <Border Background="White" 
-                            BorderBrush="Gray" 
-                            BorderThickness="1" 
-                            Padding="10"
-                            CornerRadius="3">
+                        <Popup AllowsTransparency="True"
+                               IsOpen="{Binding IsChecked, ElementName=btnVolume, Mode=TwoWay}"
+                               PlacementTarget="{Binding ElementName=btnVolume}"
+                               StaysOpen="False"
+                               Placement="Bottom"
+                               Closed="popupTracks_Closed"
+                               >
+                            <Border Background="#69558A" CornerRadius="6" BorderBrush="Transparent" BorderThickness="0" Padding="5">
+                                <StackPanel Height="105" Width="Auto" Orientation="Vertical" >
+                                    <Slider x:Name="volumeSlider" Style="{StaticResource OtherCuteSlider}" Tag="{StaticResource StarIcon}" Minimum="0" Maximum="100" Height="100" Margin="0,0,0,0" VerticalAlignment="Center" Orientation="Vertical">
+                                    <Slider.Resources>
+                                        <Style TargetType="Thumb">
+                                            <EventSetter Event="DragStarted" Handler="Slider_DragStarted"/>
+                                            <EventSetter Event="DragCompleted" Handler="Slider_DragCompleted"/>
+                                        </Style>
+                                    </Slider.Resources>
+
+                                    </Slider>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                        
+                        <Popup AllowsTransparency="True"
+                            IsOpen="{Binding IsChecked, ElementName=btnPlaylists, Mode=TwoWay}"
+                            PlacementTarget="{Binding ElementName=btnPlaylists}"
+                            StaysOpen="False"
+                            Placement="Bottom"
+                            Closed="popupTracks_Closed">
+                            <Border Background="green" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="3">
                                 <StackPanel Width="150">
                                     <ListView x:Name="lvPlaylist" ItemsSource="{Binding Playlists}" SelectionChanged="ListView_SelectionChanged">
                                         <ListView.ItemTemplate>
@@ -54,7 +77,7 @@
                             </Border>
                         </Popup>
 
-                        <Popup 
+                        <Popup AllowsTransparency="True"
                         x:Name="popupTracks"
                         PlacementTarget="{Binding ElementName=lvPlaylist}"
                         Placement="Right"
@@ -63,7 +86,7 @@
                             BorderBrush="Gray" 
                             BorderThickness="1" 
                             Padding="10"
-                            CornerRadius="3">
+                            CornerRadius="6">
                                 <StackPanel Width="150">
                                     <ListView x:Name="lvPlaylistTracks" ItemsSource="{Binding PlaylistTracks}" SelectionChanged="lvPlaylistTracks_SelectionChanged">
 
@@ -103,65 +126,88 @@
                         </Popup>
 
 
-                        <Popup IsOpen="{Binding IsChecked, ElementName=btnSettings, Mode=TwoWay}"
-                       PlacementTarget="{Binding ElementName=btnSettings}"
-                       StaysOpen="False"
-                       Placement="Bottom">
+                        <Popup AllowsTransparency="True"
+                            IsOpen="{Binding IsChecked, ElementName=btnSettings, Mode=TwoWay}"
+                            PlacementTarget="{Binding ElementName=btnSettings}"
+                            StaysOpen="False" 
+                            Placement="Bottom">
 
-                            <Border Background="White" 
-                        BorderBrush="Gray" 
-                        BorderThickness="1" 
-                        Padding="10"
-                        CornerRadius="3">
-                                <StackPanel Width="150">
-                                    <Label Name="lblUsername" Content="Username"/>
-                                    <Label Name="lblTheme" Content="Theme"/>
-                                    <ToggleButton x:Name="btnDarkMode" Content="Dark Mode" Margin="0,0,0,5"/>
-                                    <Label Name="lbllanguage" Content="Language"/>
-                                    <RibbonToggleButton x:Name="btnEnglish" Content="English" Margin="0,0,0,5"/>
-                                    <RibbonToggleButton x:Name="btnSpanish" Content="Spanish" Margin="0,0,0,5"/>
-                                    <Label Name="lblProvider" Content="Provider"/>
-                                    <Button Content="Spotify" Margin="0,0,0,5"/>
-                                    <Button Content="YouTube" Margin="0,0,0,5"/>
-
-                                    <Button x:Name="btnLogIn" Content="Log In" Click="btnLogIn_Click"  Visibility="Visible"/>
-                                    <Button x:Name="btnLogOut" Content="Log Out" Click="btnLogOut_Click" Visibility="Collapsed"/>
-                                </StackPanel>
-                            </Border>
+                            <Border Background="#69558A" 
+                            BorderBrush="#373C6F"
+                            BorderThickness="1.5" 
+                            Padding="0"
+                            CornerRadius="6">
+                           
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Background="Transparent" Width="Auto" Height="Auto">
+                                        <Label Name="lblSetting" Content="{DynamicResource Settings}" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,2"/>
+                                    <Label Name="lblUsername" Content="Username" Visibility="Collapsed" Grid.Row="1"/>
+                                    <CheckBox x:Name="chkMode" Style="{StaticResource switchCheckboxStyle}" Margin="5,0,0,5"  Grid.Row="2"/>
+                                        <Label Name="lblLanguage" Content="{DynamicResource Language}"  Grid.Row="3" HorizontalAlignment="Left" Margin="2,2,0,2"/>
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                            <RadioButton x:Name="rbtnEnglish" Content="{DynamicResource English}" Margin="2,0,0,0"  Click="btnEnglish_Click"/>
+                                            <RadioButton x:Name="rbtnAfrikaans" Content="{DynamicResource Afrikaans}" Margin="2,0,5,0" Click="btnAfrikaans_Click"/>
+                                    </StackPanel>
+                                        <Label Name="lblProvider" Content="{DynamicResource Provider}"  Grid.Row="5" HorizontalAlignment="Left" Margin="2,8,0,2"/>
+                                    <StackPanel Grid.Row="6" Orientation="Horizontal">
+                                            <RadioButton x:Name="rbtnSpotify" Content="Spotify" Margin="2,0,2,0" Click="rbtnSpotify_Click"/>
+                                            <RadioButton x:Name="rbtnYouTube" Content="YouTube" Margin="2,0,5,0" Click="rbtnYouTube_Click"/>
+                                    </StackPanel>
+                                        <Button x:Name="btnLogIn" Content="{DynamicResource Login}" Click="btnLogIn_Click"  Visibility="Visible" Grid.Row="7"  Margin="8"/>
+                                        <Button x:Name="btnLogOut" Content="{DynamicResource Logout}" Click="btnLogOut_Click" Visibility="Collapsed" Grid.Row="7" Margin="8"/>
+                                    </StackPanel>
+                                </Grid>
+                    
+            </Border>
                         </Popup>
 
-                        <Button x:Name="btnMinimize" Height="30" Width="30" Click="btnMinimize_Click"  Margin="0,0,3,0">-</Button>
-                        <Button x:Name="btnExit" Height="30" Width="30" Click="btnExit_Click">X</Button>
+
+
+                        <ToggleButton x:Name="btnMinimize" Style="{StaticResource MinButtonStyle}" Tag="{StaticResource MinIcon}" Margin="0,0,5,0"  Click="btnMinimize_Click"/>
+                        <ToggleButton x:Name="btnExit" Style="{StaticResource ExitButtonStyle}" Tag="{StaticResource ExitIcon}" Margin="0,0,5,0"  Click="btnExit_Click"/>
+                        
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10" BorderThickness="0" BorderBrush="#E2ADC1">
+            <Border Name="contentBorder"  Grid.Row="1" Grid.RowSpan="2" Padding="5" CornerRadius="0,0,10,10" BorderThickness="0" BorderBrush="Gold">
                 
                 
                 <StackPanel>
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="297" Grid.Row="1" >
-                        <Image x:Name="themeArt"  Height="auto" Source="/MVVM/View/procreateIcons/playerImage.png"   Margin="0,0,0,0"/>
+                        <Image x:Name="imgPlayerCdState"  Height="150" Width="auto" Source="/MVVM/View/procreateIcons/playerImage.png" Visibility="Visible"  Margin="10,120,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                      
+
                     </StackPanel>
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="0,10,0,10" Background="Transparent">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto" Height="Auto" Margin="0,10,0,10" Background="Transparent">
                             <Border CornerRadius="10" Width="65" Height="65">
                                 <Border.Background>
                                 <ImageBrush x:Name="imgAlbumArt" Stretch="UniformToFill" ImageSource="/MVVM/View/Uramichi oniisan KOTORI.jpg"/>
                                 </Border.Background>
                             </Border>
                             <StackPanel Width="160" Height="65" Background="Transparent" >
-                                <TextBlock x:Name="myContent" Text="connect to your provider" TextWrapping="NoWrap" Padding="7,5,0,0"/>
-                                <TextBlock x:Name="txtSongName" Text="Song Name" FontWeight="Bold" FontSize="15" TextWrapping="NoWrap" Padding="7,5,0,0"/>
-                                <TextBlock x:Name="txtArtist" Text="Artist" TextWrapping="NoWrap" Padding="7,0,0,0"/>
+                                <TextBlock x:Name="myContent" Text="{DynamicResource Connect}" TextWrapping="NoWrap" Padding="7,5,0,0"/>
+                                <TextBlock x:Name="txtSongName" Text="{DynamicResource SongName}" FontWeight="Bold" FontSize="15" TextWrapping="NoWrap" Padding="7,5,0,0"/>
+                                <TextBlock x:Name="txtArtist" Text="{DynamicResource Artist}" TextWrapping="NoWrap" Padding="7,0,0,0"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel  Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Center" Height="Auto" Margin="0,10,0,10">
                             <Button x:Name="btnBackwardSkip" Style="{StaticResource BackButtonStyle}" Tag="{StaticResource BackIcon}" Click="btnBackwardSkip_Click"  Margin="5,0,20,0"/>
                             <Button x:Name="btnPauseAndPlay" Style="{StaticResource PauseButtonStyle}" Tag="{StaticResource PlayIcon}" Click="btnPauseAndPlay_Click"  Margin="5,0,5,0"/>
-                                <Button x:Name="btnForwardSkip" Style="{StaticResource ForwardButtonStyle}" Tag="{StaticResource ForwardIcon}"  Click="btnForwardSkip_Click" Margin="20,0,5,0"/>
+                            <Button x:Name="btnForwardSkip" Style="{StaticResource ForwardButtonStyle}" Tag="{StaticResource ForwardIcon}"  Click="btnForwardSkip_Click" Margin="20,0,5,0"/>
                         </StackPanel>
-                        <Slider x:Name="songProgress" Style="{StaticResource CuteSlider}" Tag="{StaticResource StarIcon}" Minimum="0" Maximum="100" Width="auto" Margin="15,0,10,0" >
+                        <Slider x:Name="songProgress" Style="{StaticResource CuteSlider}" Tag="{StaticResource StarIcon}" Minimum="0" Maximum="100" Width="300" Margin="12,0,10,0" >
                             <Slider.Resources>
                                 <Style TargetType="Thumb">
                                     <EventSetter Event="DragStarted" Handler="Slider_DragStarted"/>

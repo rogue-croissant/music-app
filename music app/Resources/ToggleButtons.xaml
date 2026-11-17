@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="CheckBox" x:Key="switchCheckboxStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Width="60" Height="20">
+                            <Rectangle Fill="Transparent"/>
+                            <Border CornerRadius="10" BorderBrush="#69558A" BorderThickness="1.5" x:Name="ToggleBorder" Background="#69558A">
+                                    <Ellipse Fill="#C2A5F2" Height="10" Width="10" HorizontalAlignment="Left" Margin="4,0" VerticalAlignment="Center" x:Name="ToggleEllipse"/>
+                            </Border>
+                        </Grid>
+                        <ContentPresenter Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ToggleEllipse" Property="HorizontalAlignment" Value="Right"/>
+                            <Setter TargetName="ToggleBorder" Property="BorderBrush" Value="#373C6F"/>
+                            <Setter TargetName="ToggleBorder" Property="Background" Value="#3C539A"/>
+                            <Setter TargetName="ToggleEllipse" Property="Fill" Value="#FFE0F7"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"  />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" /> 
+
+    </Style>
+    
+</ResourceDictionary>

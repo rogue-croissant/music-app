@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿using AnimatedImage.Wpf;
+using Microsoft.Web.WebView2.Core;
 using Music_app.MVVM.Model;
 using Music_app.MVVM.Services;
 using Music_app.MVVM.ViewModel;
@@ -6,6 +7,7 @@ using SpotifyAPI.Web.Auth;
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -24,6 +26,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
+
 namespace Music_app
 {
     /// <summary>
@@ -39,6 +43,7 @@ namespace Music_app
         private string? currentTrackId = null;
         private bool userDragging = false;
         private bool seeking = false;
+        private bool isSpotify = false;
 
         private string mySongName;
         private string myArtistName;
@@ -55,6 +60,17 @@ namespace Music_app
             btnForwardSkip.IsEnabled = false;
             btnPauseAndPlay.IsEnabled = false;
 
+
+            //code must be moved so that it only plays when the user is logged in and playing a song, otherwise it will be a static image
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri("pack://application:,,,/MVVM/View/procreateIcons/Animate.gif", UriKind.RelativeOrAbsolute);
+            image.EndInit();
+            //    ImageBehavior.SetAnimatedSource(themeArt, image);
+
+            rbtnEnglish.IsChecked = true;
+            rbtnSpotify.IsChecked = true;
+            isSpotify = true;
         }
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -121,79 +137,87 @@ namespace Music_app
         {
             try
             {
-                SpotifyAuthServices authService = new SpotifyAuthServices();
-               
-                string accessToken = await authService.AuthenticateUserAsync();
-                await SpotifyPlayer.ExecuteScriptAsync($"window.accessToken='{accessToken}'; createPlayer();");
-                Clipboard.SetText( accessToken );
-                btnLogIn.Visibility = Visibility.Collapsed;
-                btnLogOut.Visibility = Visibility.Visible;
 
-                apiService = new SpotifyApiServices(accessToken);
-           
-                List<Tracks> userTrack = await apiService.GetTrackAsync();
-                List<Playlist> userPlaylist = await apiService.GetPlaylistAsync();
-                UserProfile profile = await apiService.GetUserProfileAsync();
-
-                lblUsername.Content = profile.Name;
-
-
-                viewModel.Tracks.Clear();
-
-                foreach (Tracks tracks in userTrack)
+                if (isSpotify)
                 {
-                    viewModel.Tracks.Add(tracks);
+                    rbtnYouTube.IsEnabled = false;
+                    SpotifyAuthServices authService = new SpotifyAuthServices();
 
+                    string accessToken = await authService.AuthenticateUserAsync();
+                    await SpotifyPlayer.ExecuteScriptAsync($"window.accessToken='{accessToken}'; createPlayer();");
+                    Clipboard.SetText(accessToken);
+                    btnLogIn.Visibility = Visibility.Collapsed;
+                    btnLogOut.Visibility = Visibility.Visible;
+
+                    apiService = new SpotifyApiServices(accessToken);
+
+                    List<Tracks> userTrack = await apiService.GetTrackAsync();
+                    List<Playlist> userPlaylist = await apiService.GetPlaylistAsync();
+                    UserProfile profile = await apiService.GetUserProfileAsync();
+
+                    lblUsername.Content = profile.Name;
+
+
+                    viewModel.Tracks.Clear();
+
+                    foreach (Tracks tracks in userTrack)
+                    {
+                        viewModel.Tracks.Add(tracks);
+
+                    }
+
+                    foreach (Playlist playlist in userPlaylist)
+                    {
+                        viewModel.Playlists.Add(playlist);
+                    }
+                    string deviceId = "";
+
+                    while (string.IsNullOrWhiteSpace(deviceId))
+                    {
+                        await Task.Delay(200);
+
+                        deviceId = await SpotifyPlayer.ExecuteScriptAsync("window.deviceId");
+                        deviceId = deviceId.Trim('"');
+                    }
+
+                    bool foundDevice = false;
+
+                    while (!foundDevice)
+                    {
+                        var devices = await apiService.GetDevicesAsync();
+
+                        foundDevice = devices.Any(d => d.Id == deviceId);
+
+                        if (!foundDevice)
+                            await Task.Delay(300);
+                    }
+
+                    // Check the playback state BEFORE transferring
+                    CurrentTrackResponse? state = await apiService.GetCurrentTrackAsync();
+                    bool wasPlaying = state?.IsPlaying ?? false;
+
+                    // Transfer playback
+                    await apiService.PutTransferPlaybackAsync(deviceId);
+
+                    // If Spotify was paused, keep your player paused too
+                    if (!wasPlaying)
+                    {
+                        await SpotifyPlayer.ExecuteScriptAsync("window.player.pause();");
+                    }
+
+                    await UpdateCurrentTrackUi();
+                    StartPlayerTimer();
+
+                    btnPlaylists.Visibility = Visibility.Visible;
+                    btnVolume.Visibility = Visibility.Visible;
+
+                    lblPlayerName.Margin = new Thickness(0, 0, 85, 0);
+
+                    songProgress.IsEnabled = true;
+                    btnBackwardSkip.IsEnabled = true;
+                    btnForwardSkip.IsEnabled = true;
+                    btnPauseAndPlay.IsEnabled = true;
                 }
-
-                foreach (Playlist playlist in userPlaylist)
-                {
-                    viewModel.Playlists.Add(playlist);
-                }
-                string deviceId = "";
-
-                while (string.IsNullOrWhiteSpace(deviceId))
-                {
-                    await Task.Delay(200);
-
-                    deviceId = await SpotifyPlayer.ExecuteScriptAsync("window.deviceId");
-                    deviceId = deviceId.Trim('"');
-                }
-
-                bool foundDevice = false;
-
-                while (!foundDevice)
-                {
-                    var devices = await apiService.GetDevicesAsync();
-
-                    foundDevice = devices.Any(d => d.Id == deviceId);
-
-                    if (!foundDevice)
-                        await Task.Delay(300);
-                }
-
-                // Check the playback state BEFORE transferring
-                CurrentTrackResponse? state = await apiService.GetCurrentTrackAsync();
-                bool wasPlaying = state?.IsPlaying ?? false;
-
-                // Transfer playback
-                await apiService.PutTransferPlaybackAsync(deviceId);
-
-                // If Spotify was paused, keep your player paused too
-                if (!wasPlaying)
-                {
-                    await SpotifyPlayer.ExecuteScriptAsync("window.player.pause();");
-                }
-
-                await UpdateCurrentTrackUi();
-                StartPlayerTimer();
-
-                btnPlaylists.Visibility = Visibility.Visible;
-                songProgress.IsEnabled = true;
-                btnBackwardSkip.IsEnabled = true;
-                btnForwardSkip.IsEnabled = true;
-                btnPauseAndPlay.IsEnabled = true;
-
             }
             catch (Exception ex)
             {
@@ -203,6 +227,7 @@ namespace Music_app
 
         private async void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
+
             playerTimer.Stop();
             await SpotifyPlayer.ExecuteScriptAsync("logoutPlayer()");
 
@@ -213,14 +238,11 @@ namespace Music_app
             viewModel.Playlists.Clear();
             viewModel.Tracks.Clear();
 
-           // lblSongName.Content = "";
-          //  lblAuthor.Content = "";
-          //  lblPlaying.Content = string.Empty;
 
-            lblProgress.Content = "00:00";
-            lblDuration.Content = "00:00";
-            imgAlbumArt.ImageSource = null;
-            songProgress.Value = 0;
+
+            clearLogin();
+            
+           
             songProgress.IsEnabled = false;
             btnBackwardSkip.IsEnabled = false;
             btnForwardSkip.IsEnabled = false;
@@ -229,6 +251,7 @@ namespace Music_app
             btnPlaylists.Visibility = Visibility.Collapsed;
             btnLogIn.Visibility = Visibility.Visible;
             btnLogOut.Visibility = Visibility.Collapsed;
+            
         }
 
         private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -272,9 +295,9 @@ namespace Music_app
                 }
             }
 
-           // lblAuthor.Content = artist;
+           //lblAuthor.Content = artist;
             myArtistName = artist;
-            myContent.Text = "Now Playing...";
+            myContent.Text = (String)FindResource("NowPlaying");
             txtArtist.Text = artist;
             txtSongName.Text = mySongName;
             if (current.Album.Images.Count > 0)
@@ -292,6 +315,22 @@ namespace Music_app
         }
         public void updateSongProgress(CurrentTrackResponse current)
         {
+          /*   BitmapImage myBitmap = new BitmapImage();
+             myBitmap.BeginInit();
+            myBitmap.StreamSource = File.OpenRead(@"C:\Users\USER-PC\source\repos\music app\Music app\MVVM\View\procreateIcons\cdPlayer1.png");
+            myBitmap.CacheOption = BitmapCacheOption.OnLoad;
+         
+                myBitmap.EndInit();*/
+
+            
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(@"C:\Users\USER-PC\source\repos\music app\Music app\MVVM\View\procreateIcons\Cd_Animation.gif");
+            image.EndInit();
+            ImageBehavior.SetAnimatedSource(imgPlayerCdState, image);
+         //   imgPlayerCdState.Source = myBitmap;
+
+
             TimeSpan duration = TimeSpan.FromMilliseconds(current.Item.DurationMs);
             TimeSpan progress = TimeSpan.FromMilliseconds(current.Progress);
             lblDuration.Content = duration.ToString(@"mm\:ss");
@@ -397,6 +436,73 @@ namespace Music_app
         private void popupTracks_Closed(object sender, EventArgs e)
         {
             lvPlaylist.SelectedItem = null;
+        }
+
+        private void btnEnglish_Click(object sender, RoutedEventArgs e)
+        {
+            SetLanguageDictionary(); 
+
+            if (myContent.Text != (String)FindResource("Connect"))
+            {
+                myContent.Text = (String)FindResource("NowPlaying");
+            }
+        }
+        private void SetLanguageDictionary()
+        {
+            ResourceDictionary dict = new ResourceDictionary();
+            switch (rbtnAfrikaans.IsChecked)
+            {
+                case false:
+                    dict.Source = new Uri("..\\Resources\\EnglishStringResource.xaml", UriKind.Relative);
+                    break;
+                case true:
+                    dict.Source = new Uri("..\\Resources\\AfrikaansStringResource.xaml", UriKind.Relative);
+                    break;
+                default:
+                    dict.Source = new Uri("..\\Resources\\EnglishStringResource.xaml", UriKind.Relative);
+                    break;
+            }
+            this.Resources.MergedDictionaries.Add(dict);
+        }
+
+        private void btnAfrikaans_Click(object sender, RoutedEventArgs e)
+        {
+            SetLanguageDictionary();
+            if (myContent.Text != (String)FindResource("Connect"))
+            {
+                myContent.Text = (String)FindResource("NowPlaying");
+            }
+        }
+
+        private void rbtnSpotify_Click(object sender, RoutedEventArgs e)
+        {
+            isSpotify = true;
+        }
+
+        private void rbtnYouTube_Click(object sender, RoutedEventArgs e)
+        {
+            isSpotify = false;
+        }
+
+        private void clearLogin()
+        {
+           
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri("C:\\Users\\USER-PC\\source\\repos\\music app\\Music app\\MVVM\\View\\Uramichi oniisan KOTORI.jpg", UriKind.RelativeOrAbsolute);
+            image.EndInit();
+            imgAlbumArt.ImageSource = image;
+           
+
+
+            myContent.Text = (String)FindResource("Connect");
+            txtSongName.Text = (String)FindResource("SongName");
+            txtArtist.Text = (String)FindResource("Artist");
+            lblProgress.Content = "00:00";
+            lblDuration.Content = "00:00";
+            songProgress.Value = 0;
+            btnPlaylists.Visibility = Visibility.Collapsed;
+            lblPlayerName.Margin = new Thickness(0, 0, 120, 0);
         }
     }
 }

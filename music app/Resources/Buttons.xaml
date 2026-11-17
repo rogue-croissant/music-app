@@ -7,18 +7,17 @@
     <Style x:Key="btnStyle" TargetType="Button">
         <Setter Property="Height" Value="40"/>
         <Setter Property="Width" Value="60"/>
-        <Setter Property="BorderBrush" Value="DarkRed"/>
-        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#69558A"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
         <Setter Property="Padding" Value="10"/>
         
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border
+                    <Border x:Name="ButtonBorder"
                             CornerRadius="10"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-
                         <Image
                             Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                             Width="30"
@@ -28,6 +27,18 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"/>        
                     </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="#69558A"/>
+                            <Setter Property="Grid.ZIndex" Value="1"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -44,11 +55,13 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border
+                        
                         CornerRadius="10"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
 
                         <Image
+                        x:Name="myImage"
                         Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                         Width="25"
                         Height="25"
@@ -57,12 +70,22 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Grid.ZIndex" Value="1"/>
+                                <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
+    
+  
     <Style x:Key="BackButtonStyle"
        TargetType="Button"
        BasedOn="{StaticResource btnStyle}">
@@ -114,6 +137,45 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="VolumeButtonStyle"
+       TargetType="ToggleButton"
+       BasedOn="{StaticResource btnBarStyle}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="{StaticResource VolumeIcon}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MinButtonStyle"
+     TargetType="ToggleButton"
+     BasedOn="{StaticResource btnBarStyle}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="{StaticResource MinIcon}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="ExitButtonStyle"
+   TargetType="ToggleButton"
+   BasedOn="{StaticResource btnBarStyle}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="{StaticResource ExitIcon}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="PlaylistButtonStyle"
    TargetType="ToggleButton"
    BasedOn="{StaticResource btnBarStyle}">

@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>MVVM\View\procreateIcons\appIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,8 +19,14 @@
     <None Remove="MVVM\View\mainBorder.png" />
     <None Remove="MVVM\View\Pause.png" />
     <None Remove="MVVM\View\playIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\Animate.gif" />
+    <None Remove="MVVM\View\procreateIcons\Animate.png" />
     <None Remove="MVVM\View\procreateIcons\backwardsIcon.png" />
     <None Remove="MVVM\View\procreateIcons\Border.png" />
+    <None Remove="MVVM\View\procreateIcons\cdPlayer1.png" />
+    <None Remove="MVVM\View\procreateIcons\cdPlayer2.png" />
+    <None Remove="MVVM\View\procreateIcons\cdPlayer3.png" />
+    <None Remove="MVVM\View\procreateIcons\cdPlayer4.png" />
     <None Remove="MVVM\View\procreateIcons\forwardsIcon.png" />
     <None Remove="MVVM\View\procreateIcons\h.png" />
     <None Remove="MVVM\View\procreateIcons\pauseIcon.png" />
@@ -28,6 +35,7 @@
     <None Remove="MVVM\View\procreateIcons\playlistIcon.png" />
     <None Remove="MVVM\View\procreateIcons\settingsIcon.png" />
     <None Remove="MVVM\View\procreateIcons\starIcon.png" />
+    <None Remove="MVVM\View\procreateIcons\volumeIcon.png" />
     <None Remove="MVVM\View\PurpleBorder.png" />
     <None Remove="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
@@ -43,10 +51,40 @@
 	  <Page Remove="MVVM\View\procreate icons\**" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="MVVM\View\procreateIcons\appIcon.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="MVVM\View\playerImage.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\Animate.gif">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\Animate.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	  <Resource Include="MVVM\View\procreateIcons\backwardsIcon.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="MVVM\View\procreateIcons\Border.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\exitIcon.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\minIcon.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\cdPlayer1.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\cdPlayer2.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\cdPlayer3.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="MVVM\View\procreateIcons\cdPlayer4.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="MVVM\View\procreateIcons\pauseIcon.png" />
@@ -57,9 +95,11 @@
 	  </Resource>
 	</ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AnimatedImage.Wpf" Version="2.1.4" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4078.44" />
     <PackageReference Include="SpotifyAPI.Web" Version="7.4.2" />
     <PackageReference Include="SpotifyAPI.Web.Auth" Version="7.4.2" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -94,13 +134,15 @@
     <Resource Include="MVVM\View\procreateIcons\starIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="MVVM\View\procreateIcons\volumeIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="MVVM\View\PurpleBorder.png" />
     <Resource Include="MVVM\View\Uramichi oniisan KOTORI.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Styles\" />
-    <Folder Include="Resources\Themes\" />
   </ItemGroup>
 
 </Project>

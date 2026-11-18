@@ -48,7 +48,7 @@ namespace Music_app
 
         private int myVolume = 0;
         private bool updatingVolume = false;
-
+        private string deviceId = "";
         private string mySongName;
         private string myArtistName;
         public MainWindow()
@@ -141,18 +141,19 @@ namespace Music_app
         {
             try
             {
-
                 if (isSpotify)
                 {
+                   // await SpotifyPlayer.EnsureCoreWebView2Async();
                     rbtnYouTube.IsEnabled = false;
                     SpotifyAuthServices authService = new SpotifyAuthServices();
 
                     string accessToken = await authService.AuthenticateUserAsync();
+                   
                     await SpotifyPlayer.ExecuteScriptAsync($"window.accessToken='{accessToken}'; createPlayer();");
                     Clipboard.SetText(accessToken);
                     btnLogIn.Visibility = Visibility.Collapsed;
                     btnLogOut.Visibility = Visibility.Visible;
-
+                   
                     apiService = new SpotifyApiServices(accessToken);
 
                     List<Tracks> userTrack = await apiService.GetTrackAsync();
@@ -160,7 +161,6 @@ namespace Music_app
                     UserProfile profile = await apiService.GetUserProfileAsync();
 
                     lblUsername.Content = profile.Name;
-
 
                     viewModel.Tracks.Clear();
 
@@ -174,47 +174,49 @@ namespace Music_app
                     {
                         viewModel.Playlists.Add(playlist);
                     }
-                    string deviceId = "";
+                     deviceId = "";
 
                     while (string.IsNullOrWhiteSpace(deviceId))
                     {
                         await Task.Delay(200);
 
                         deviceId = await SpotifyPlayer.ExecuteScriptAsync("window.deviceId");
+                        
                         deviceId = deviceId.Trim('"');
+                        
                     }
-
+                    
                     bool foundDevice = false;
-                    int myCount = 0;
-                   
+                    
                     while (!foundDevice)
                     {
                         var devices = await apiService.GetDevicesAsync();
-
                         foundDevice = devices.Any(d => d.Id == deviceId);
+                       
                         for (int i = 0; i < devices.Count; i++)
                         {
+                          
                             if (devices[i].Name != "My WPF Player")
                             {
                                 myVolume = devices[i].VolumePercentage;
-                                MessageBox.Show("volume has been updated in the loop: " + myVolume.ToString());
+                                
                                 break;
                             }
                         }
-                        MessageBox.Show("volume in initial: " + myVolume.ToString());
+                   
                         
                         if (!foundDevice) { 
                             await Task.Delay(300);
-                            myCount++;
                         }
                     }
-
+                   
                     // Check the playback state BEFORE transferring
                     CurrentTrackResponse? state = await apiService.GetCurrentTrackAsync();
                     bool wasPlaying = state?.IsPlaying ?? false;
 
                     // Transfer playback
                     await apiService.PutTransferPlaybackAsync(deviceId);
+                    await Task.Delay(1000);
                     updateVolumeSlider(myVolume);
                     await UpdateCurrentVolume(myVolume);
                     
@@ -247,10 +249,9 @@ namespace Music_app
         
         private async void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-
             playerTimer.Stop();
             await SpotifyPlayer.ExecuteScriptAsync("logoutPlayer()");
-            await Task.Delay(1000);
+            await Task.Delay(2000);
 
             apiService = null;
             currentTrackId = null;
@@ -272,6 +273,8 @@ namespace Music_app
             btnLogOut.Visibility = Visibility.Collapsed;
             btnVolume.Visibility = Visibility.Collapsed;
 
+
+            
         }
 
         private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -375,7 +378,7 @@ namespace Music_app
             {
                 updatingVolume = true;
                
-                MessageBox.Show("volume in updateCurrentVolume(): " + volume);
+               // MessageBox.Show("volume in updateCurrentVolume(): " + volume);
                
                 if (volumeSlider.Value != volume)
                 {

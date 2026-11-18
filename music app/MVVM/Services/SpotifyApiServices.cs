@@ -139,11 +139,11 @@ namespace Music_app.MVVM.Services
 
             string json = await response.Content.ReadAsStringAsync();
 
-            MessageBox.Show(json);
+           // MessageBox.Show(json);
 
             MyDeviceResponse? result =
                 JsonSerializer.Deserialize<MyDeviceResponse>(json);
-            
+       
             return result.Devices;
         }
         public async Task SeekPlaybackAsync(int positionMs)

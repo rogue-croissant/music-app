@@ -69,8 +69,8 @@ function createPlayer() {
         log("State changed");
     })
     player.connect().then(success => {
-      //  log("Connect returned:");
-      //  log(success);
+        log("Connect returned:");
+        log(success);
     });
 }
 async function forwardSkip() {
@@ -98,7 +98,7 @@ async function logoutPlayer() {
 
     player = null;
     window.player = null;
-    window.deviceId = "";
+    
     window.accessToken = "";
 
 }

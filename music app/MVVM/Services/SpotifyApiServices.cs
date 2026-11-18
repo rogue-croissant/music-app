@@ -52,7 +52,6 @@ namespace Music_app.MVVM.Services
                 return tracks;                        
 
         }
-
         public async Task<List<Playlist>> GetPlaylistAsync()
         {
             HttpResponseMessage response = await _client.GetAsync(playlistUrl);
@@ -168,6 +167,25 @@ namespace Music_app.MVVM.Services
             UserProfile profile = JsonSerializer.Deserialize<UserProfile>(json);
 
             return profile;
+        }
+
+        public async Task PutSeekVolumeAsync(int position)
+        {
+
+            string url =
+               $"https://api.spotify.com/v1/me/player/volume?volume_percent={position}";
+
+            HttpResponseMessage response =
+                await _client.PutAsync(url, null);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var bodys = await response.Content.ReadAsStringAsync();
+
+                MessageBox.Show(
+                    $"Status: {(int)response.StatusCode}\n\n{bodys}");
+            }
+
         }
     }
     

@@ -47,7 +47,7 @@
                                     <Slider.Resources>
                                         <Style TargetType="Thumb">
                                             <EventSetter Event="DragStarted" Handler="Slider_DragStarted"/>
-                                            <EventSetter Event="DragCompleted" Handler="Slider_DragCompleted"/>
+                                            <EventSetter Event="DragCompleted" Handler="VolumeSlider_DragCompleted"/>
                                         </Style>
                                     </Slider.Resources>
 

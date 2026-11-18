@@ -3,6 +3,7 @@ using Microsoft.Web.WebView2.Core;
 using Music_app.MVVM.Model;
 using Music_app.MVVM.Services;
 using Music_app.MVVM.ViewModel;
+using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using System;
 using System.Configuration;
@@ -44,6 +45,9 @@ namespace Music_app
         private bool userDragging = false;
         private bool seeking = false;
         private bool isSpotify = false;
+
+        private int myVolume = 0;
+        private bool updatingVolume = false;
 
         private string mySongName;
         private string myArtistName;
@@ -181,15 +185,20 @@ namespace Music_app
                     }
 
                     bool foundDevice = false;
-
+                    int myCount = 0;
+                   
                     while (!foundDevice)
                     {
                         var devices = await apiService.GetDevicesAsync();
 
                         foundDevice = devices.Any(d => d.Id == deviceId);
-
-                        if (!foundDevice)
+                        myVolume = devices[1].VolumePercentage;
+                        MessageBox.Show("volume in initial: " + myVolume.ToString());
+                        
+                        if (!foundDevice) { 
                             await Task.Delay(300);
+                            myCount++;
+                        }
                     }
 
                     // Check the playback state BEFORE transferring
@@ -198,7 +207,8 @@ namespace Music_app
 
                     // Transfer playback
                     await apiService.PutTransferPlaybackAsync(deviceId);
-
+                    await UpdateCurrentVolume(myVolume);
+                    updateVolumeSlider(myVolume);
                     // If Spotify was paused, keep your player paused too
                     if (!wasPlaying)
                     {
@@ -217,6 +227,7 @@ namespace Music_app
                     btnBackwardSkip.IsEnabled = true;
                     btnForwardSkip.IsEnabled = true;
                     btnPauseAndPlay.IsEnabled = true;
+                   
                 }
             }
             catch (Exception ex)
@@ -224,7 +235,7 @@ namespace Music_app
                 MessageBox.Show(ex.ToString());
             }
         }
-
+        
         private async void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
 
@@ -347,7 +358,46 @@ namespace Music_app
                 userDragging = false;
                
         }
+        public async Task UpdateCurrentVolume(int volume) {
+            
+            if (updatingVolume)
+                return;
+            try
+            {
+                updatingVolume = true;
+               
+                MessageBox.Show("volume in updateCurrentVolume(): " + volume);
+               
+                if (volumeSlider.Value != volume)
+                {
+                    _ = apiService.PutSeekVolumeAsync((int)volumeSlider.Value);
+                   
+                }
+                
+            }
+            catch
+            {
+                MessageBox.Show("Loser");
 
+            }
+            finally
+            {
+                updatingVolume = false;
+            }
+            
+            await Task.Delay(2000);
+        }
+
+        public void updateVolumeSlider(int currentVolume)
+        {
+            if (!userDragging)
+            {
+                volumeSlider.Value = currentVolume;
+
+            }
+            userDragging = false;
+            
+        }
         private async Task UpdateCurrentTrackUi()
         {
             if (updatingTrack)
@@ -503,6 +553,15 @@ namespace Music_app
             songProgress.Value = 0;
             btnPlaylists.Visibility = Visibility.Collapsed;
             lblPlayerName.Margin = new Thickness(0, 0, 120, 0);
+        }
+
+        private async void VolumeSlider_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            seeking = true;
+            await UpdateCurrentVolume((int)volumeSlider.Value);
+            await Task.Delay(500);
+
+            seeking = false;
         }
     }
 }

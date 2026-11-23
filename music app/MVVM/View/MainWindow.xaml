@@ -27,7 +27,7 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,4,2">
                        
-                        <Label x:Name="lblPlayerName" Content="My player Name" HorizontalAlignment="Left" Margin="0,0,120,0" />
+                        <Label x:Name="lblPlayerName" Content="Starlight player" HorizontalAlignment="Left" Margin="0,0,120,0" />
                        
                         
                         <ToggleButton x:Name="btnSettings" Style="{StaticResource SettingsButtonStyle}" Tag="{StaticResource SettingsIcon}" Margin="0,0,5,0"/>

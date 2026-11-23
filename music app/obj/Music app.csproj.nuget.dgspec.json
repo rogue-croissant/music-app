@@ -70,6 +70,10 @@
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[10.0.12, )"
+            },
+            "YouTubeMusicAPI": {
+              "target": "Package",
+              "version": "[3.1.0, )"
             }
           },
           "imports": [

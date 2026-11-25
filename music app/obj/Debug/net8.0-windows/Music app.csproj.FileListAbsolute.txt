@@ -8,24 +8,17 @@ C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Music
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Music app.runtimeconfig.json
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Music app.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Music app.pdb
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Acornima.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\AnimatedImage.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\AnimatedImage.Wpf.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\EmbedIO.dll
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Jint.dll
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Win32.SystemEvents.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\SpotifyAPI.Web.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\SpotifyAPI.Web.Auth.dll
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Drawing.Common.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Private.Windows.Core.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Private.Windows.GdiPlus.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Swan.Lite.dll
-C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\YouTubeMusicAPI.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
 C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
@@ -60,3 +53,9 @@ C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\refin
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app.pdb
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\Music app.genruntimeconfig.cache
 C:\Users\USER-PC\source\repos\music app\Music app\obj\Debug\net8.0-windows\ref\Music app.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Google.Apis.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Google.Apis.Auth.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Google.Apis.Core.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\Google.Apis.YouTube.v3.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\USER-PC\source\repos\music app\Music app\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll

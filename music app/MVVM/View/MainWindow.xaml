@@ -148,23 +148,27 @@
                                             <RowDefinition />
                                             <RowDefinition />
                                             <RowDefinition />
+                                            <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <StackPanel Background="Transparent" Width="Auto" Height="Auto">
                                         <Label Name="lblSetting" Content="{DynamicResource Settings}" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,2"/>
                                     <Label Name="lblUsername" Content="Username" Visibility="Collapsed" Grid.Row="1"/>
-                                    <CheckBox x:Name="chkMode" Style="{StaticResource switchCheckboxStyle}" Margin="5,0,0,5"  Grid.Row="2"/>
-                                        <Label Name="lblLanguage" Content="{DynamicResource Language}"  Grid.Row="3" HorizontalAlignment="Left" Margin="2,2,0,2"/>
-                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                        <Label Name="lblMode" Content="{DynamicResource Mode}" HorizontalAlignment="Left" Margin="2,2,0,2"  Grid.Row="2"/>
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                            <RadioButton x:Name="rbtnLight" Content="{DynamicResource Light}" Margin="2,0,0,0"  Click="btnEnglish_Click"/>
+                                            <RadioButton x:Name="rbtnDark" Content="{DynamicResource Dark}" Margin="2,0,5,0" Click="btnAfrikaans_Click"/>
+                                        </StackPanel>
+                                        <Label Name="lblLanguage" Content="{DynamicResource Language}"  Grid.Row="4" HorizontalAlignment="Left" Margin="2,2,0,2"/>
+                                    <StackPanel Grid.Row="5" Orientation="Horizontal">
                                             <RadioButton x:Name="rbtnEnglish" Content="{DynamicResource English}" Margin="2,0,0,0"  Click="btnEnglish_Click"/>
                                             <RadioButton x:Name="rbtnAfrikaans" Content="{DynamicResource Afrikaans}" Margin="2,0,5,0" Click="btnAfrikaans_Click"/>
                                     </StackPanel>
-                                        <Label Name="lblProvider" Content="{DynamicResource Provider}"  Grid.Row="5" HorizontalAlignment="Left" Margin="2,8,0,2"/>
-                                    <StackPanel Grid.Row="6" Orientation="Horizontal">
-                                            <RadioButton x:Name="rbtnSpotify" Content="Spotify" Margin="2,0,2,0" Click="rbtnSpotify_Click"/>
-                                            <RadioButton x:Name="rbtnYouTube" Content="YouTube" Margin="2,0,5,0" Click="rbtnYouTube_Click"/>
-                                    </StackPanel>
-                                        <Button x:Name="btnLogIn" Content="{DynamicResource Login}" Click="btnLogIn_Click"  Visibility="Visible" Grid.Row="7"  Margin="8"/>
-                                        <Button x:Name="btnLogOut" Content="{DynamicResource Logout}" Click="btnLogOut_Click" Visibility="Collapsed" Grid.Row="7" Margin="8"/>
+                                        <Label Name="lblProvider" Content="{DynamicResource Provider}"  Grid.Row="6" HorizontalAlignment="Left" Margin="2,8,0,2"/>
+                                    <StackPanel Grid.Row="7" Orientation="Horizontal">
+                                            <RadioButton x:Name="rbtnSpotify" Content="Spotify" Margin="2,0,2,0" IsChecked="True" />
+                                        </StackPanel>
+                                        <Button x:Name="btnLogIn" Content="{DynamicResource Login}" Click="btnLogIn_Click"  Visibility="Visible" Grid.Row="8"  Margin="8"/>
+                                        <Button x:Name="btnLogOut" Content="{DynamicResource Logout}" Click="btnLogOut_Click" Visibility="Collapsed" Grid.Row="8" Margin="8"/>
                                     </StackPanel>
                                 </Grid>
                     

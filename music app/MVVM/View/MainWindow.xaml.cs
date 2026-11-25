@@ -44,7 +44,7 @@ namespace Music_app
         private string? currentTrackId = null;
         private bool userDragging = false;
         private bool seeking = false;
-        private bool isSpotify = false;
+    
 
         private int myVolume = 0;
         private bool updatingVolume = false;
@@ -74,7 +74,6 @@ namespace Music_app
 
             rbtnEnglish.IsChecked = true;
             rbtnSpotify.IsChecked = true;
-            isSpotify = true;
         }
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -141,10 +140,8 @@ namespace Music_app
         {
             try
             {
-                if (isSpotify)
-                {
                    // await SpotifyPlayer.EnsureCoreWebView2Async();
-                    rbtnYouTube.IsEnabled = false;
+                    
                     SpotifyAuthServices authService = new SpotifyAuthServices();
 
                     string accessToken = await authService.AuthenticateUserAsync();
@@ -238,8 +235,7 @@ namespace Music_app
                     btnBackwardSkip.IsEnabled = true;
                     btnForwardSkip.IsEnabled = true;
                     btnPauseAndPlay.IsEnabled = true;
-                   
-                }
+                  
             }
             catch (Exception ex)
             {
@@ -538,14 +534,10 @@ namespace Music_app
 
         private void rbtnSpotify_Click(object sender, RoutedEventArgs e)
         {
-            isSpotify = true;
+            
         }
 
-        private void rbtnYouTube_Click(object sender, RoutedEventArgs e)
-        {
-            isSpotify = false;
-        }
-
+       
         private void clearLogin()
         {
            

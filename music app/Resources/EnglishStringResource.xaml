@@ -13,4 +13,7 @@
         <system:String x:Key="NowPlaying">Now Playing...</system:String>
         <system:String x:Key="English">English</system:String>
         <system:String x:Key="Afrikaans">Afrikaans</system:String>
+        <system:String x:Key="Mode">Mode</system:String>
+        <system:String x:Key="Light">Light</system:String>
+        <system:String x:Key="Dark">Dark</system:String>
 </ResourceDictionary>

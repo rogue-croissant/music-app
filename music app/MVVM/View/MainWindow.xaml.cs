@@ -81,6 +81,12 @@ namespace Music_app
 
             SpotifyPlayer.NavigationCompleted += SpotifyPlayer_NavigationCompleted;
 
+            SpotifyPlayer.CoreWebView2.WebMessageReceived += (s, args) =>
+            {
+                Debug.WriteLine("[SPOTIFY JS] " + args.TryGetWebMessageAsString());
+            };
+
+
             string path = System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "WebPlayer",
@@ -140,18 +146,68 @@ namespace Music_app
         {
             try
             {
-                   // await SpotifyPlayer.EnsureCoreWebView2Async();
-                    
-                    SpotifyAuthServices authService = new SpotifyAuthServices();
+                // await SpotifyPlayer.EnsureCoreWebView2Async();
 
-                    string accessToken = await authService.AuthenticateUserAsync();
-                   
-                    await SpotifyPlayer.ExecuteScriptAsync($"window.accessToken='{accessToken}'; createPlayer();");
-                    Clipboard.SetText(accessToken);
-                    btnLogIn.Visibility = Visibility.Collapsed;
+                SpotifyAuthServices authService = new SpotifyAuthServices();
+
+                string accessToken = await authService.AuthenticateUserAsync();
+
+                apiService = new SpotifyApiServices(accessToken);
+
+                string escapedToken =
+                    System.Text.Json.JsonSerializer.Serialize(accessToken);
+
+                await SpotifyPlayer.ExecuteScriptAsync(
+                    $"window.accessToken = {escapedToken};"
+                );
+
+                string connected = await SpotifyPlayer.ExecuteScriptAsync(
+                    "window.player ? 'Player exists' : 'No player'"
+                );
+
+                Debug.WriteLine("PLAYER CHECK: " + connected);
+
+                if (connected.Contains("No player"))
+                {
+                    Debug.WriteLine("Creating new Spotify player...");
+
+                    await SpotifyPlayer.ExecuteScriptAsync("createPlayer();");
+                }
+                else
+                {
+                    Debug.WriteLine("Reconnecting existing Spotify player...");
+
+                    await SpotifyPlayer.ExecuteScriptAsync("reconnectPlayer();");
+                }
+
+
+                deviceId = "";
+
+                for (int attempt = 0; attempt < 30; attempt++)
+                {
+                    string result = await SpotifyPlayer.ExecuteScriptAsync(
+                        "window.deviceId"
+                    );
+
+                    deviceId = result.Trim('"');
+
+                    if (!string.IsNullOrWhiteSpace(deviceId))
+                        break;
+
+                    await Task.Delay(500);
+                }
+
+                if (string.IsNullOrWhiteSpace(deviceId))
+                {
+                    MessageBox.Show("Spotify player did not become ready.");
+                    return;
+                }
+
+                Debug.WriteLine("WPF Device ID: " + deviceId);
+                btnLogIn.Visibility = Visibility.Collapsed;
                     btnLogOut.Visibility = Visibility.Visible;
                    
-                    apiService = new SpotifyApiServices(accessToken);
+                   
 
                     List<Tracks> userTrack = await apiService.GetTrackAsync();
                     List<Playlist> userPlaylist = await apiService.GetPlaylistAsync();
@@ -177,38 +233,44 @@ namespace Music_app
                     {
                         await Task.Delay(200);
 
-                        deviceId = await SpotifyPlayer.ExecuteScriptAsync("window.deviceId");
-                        
-                        deviceId = deviceId.Trim('"');
-                        
-                    }
-                    
-                    bool foundDevice = false;
-                    
-                    while (!foundDevice)
+                    string result = await SpotifyPlayer.ExecuteScriptAsync("window.deviceId");
+
+                    Debug.WriteLine($"Raw device ID: {result}");
+
+                    deviceId = result.Trim('"');
+
+                    Debug.WriteLine($"Processed device ID: {deviceId}");
+
+                }
+
+                bool foundDevice = false;
+
+                for (int attempt = 0; attempt < 20; attempt++)
+                {
+                    var devices = await apiService.GetDevicesAsync();
+
+                    var wpfDevice = devices.FirstOrDefault(d => d.Id == deviceId);
+
+                    if (wpfDevice != null)
                     {
-                        var devices = await apiService.GetDevicesAsync();
-                        foundDevice = devices.Any(d => d.Id == deviceId);
-                       
-                        for (int i = 0; i < devices.Count; i++)
-                        {
-                          
-                            if (devices[i].Name != "My WPF Player")
-                            {
-                                myVolume = devices[i].VolumePercentage;
-                                
-                                break;
-                            }
-                        }
-                   
-                        
-                        if (!foundDevice) { 
-                            await Task.Delay(300);
-                        }
+                        foundDevice = true;
+                        Debug.WriteLine("WPF PLAYER REGISTERED!");
+                        break;
                     }
-                   
-                    // Check the playback state BEFORE transferring
-                    CurrentTrackResponse? state = await apiService.GetCurrentTrackAsync();
+
+                    Debug.WriteLine("Waiting for Spotify to register new player...");
+
+                    await Task.Delay(1000);
+                }
+
+                if (!foundDevice)
+                {
+                    MessageBox.Show("Spotify has not registered the new WPF player yet.");
+                    return;
+                }
+
+                // Check the playback state BEFORE transferring
+                CurrentTrackResponse? state = await apiService.GetCurrentTrackAsync();
                     bool wasPlaying = state?.IsPlaying ?? false;
 
                     // Transfer playback
@@ -242,8 +304,43 @@ namespace Music_app
                 MessageBox.Show(ex.ToString());
             }
         }
-        
         private async void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                playerTimer?.Stop();
+                playerTimer = null;
+
+                await SpotifyPlayer.ExecuteScriptAsync("logoutPlayer()");
+
+                await Task.Delay(1000);
+
+                apiService = null;
+                currentTrackId = null;
+                deviceId = "";
+
+                viewModel.PlaylistTracks.Clear();
+                viewModel.Playlists.Clear();
+                viewModel.Tracks.Clear();
+
+                clearLogin();
+
+                songProgress.IsEnabled = false;
+                btnBackwardSkip.IsEnabled = false;
+                btnForwardSkip.IsEnabled = false;
+                btnPauseAndPlay.IsEnabled = false;
+
+                btnPlaylists.Visibility = Visibility.Collapsed;
+                btnLogIn.Visibility = Visibility.Visible;
+                btnLogOut.Visibility = Visibility.Collapsed;
+                btnVolume.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private async void btnLogOut_Click2(object sender, RoutedEventArgs e)
         {
             playerTimer.Stop();
             await SpotifyPlayer.ExecuteScriptAsync("logoutPlayer()");
@@ -531,13 +628,7 @@ namespace Music_app
                 myContent.Text = (String)FindResource("NowPlaying");
             }
         }
-
-        private void rbtnSpotify_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-       
+ 
         private void clearLogin()
         {
            

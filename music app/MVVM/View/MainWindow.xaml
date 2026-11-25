@@ -175,8 +175,6 @@
             </Border>
                         </Popup>
 
-
-
                         <ToggleButton x:Name="btnMinimize" Style="{StaticResource MinButtonStyle}" Tag="{StaticResource MinIcon}" Margin="0,0,5,0"  Click="btnMinimize_Click"/>
                         <ToggleButton x:Name="btnExit" Style="{StaticResource ExitButtonStyle}" Tag="{StaticResource ExitIcon}" Margin="0,0,5,0"  Click="btnExit_Click"/>
                         

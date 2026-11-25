@@ -15,6 +15,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 };
 
 function createPlayer() {
+    log("CREATE PLAYER CALLED");
     if (player) {
         log("Player already exists");
         return;
@@ -59,18 +60,30 @@ function createPlayer() {
     });
 
     player.addListener("ready", ({ device_id }) => {
+
         window.deviceId = device_id;
+        window.playerConnected = true;
+
+        log("SPOTIFY PLAYER READY");
+        log("Device ID: " + device_id);
+
     });
 
     player.addListener("not_ready", ({ device_id }) => {
-        log("NOT READY");
+
+        window.playerConnected = false;
+
+        log("SPOTIFY PLAYER NOT READY");
+        log("Device ID: " + device_id);
+
     });
     player.addListener("player_state_changed", state => {
         log("State changed");
     })
     player.connect().then(success => {
-        log("Connect returned:");
-        log(success);
+        log("Connect returned: " + success);
+    }).catch(error => {
+        log("Connect error: " + error);
     });
 }
 async function forwardSkip() {
@@ -92,15 +105,43 @@ async function togglePlayer() {
 async function logoutPlayer() {
 
     if (player) {
-        await player.disconnect();
-        player = null;
+        try {
+            await player.pause();
+        }
+        catch (error) {
+            log("Pause error: " + error);
+        }
+
+        log("Disconnecting Spotify session...");
+
+        player.disconnect();
+
+        window.playerConnected = false;
+        window.deviceId = "";
+
+        log("Spotify session disconnected.");
     }
 
-    player = null;
-    window.player = null;
-    
     window.accessToken = "";
+}
 
+async function reconnectPlayer() {
+
+    if (!player) {
+        log("No existing player. Creating one...");
+        createPlayer();
+        return;
+    }
+
+    log("Reconnecting existing Spotify player...");
+
+    const success = await player.connect();
+
+    log("Reconnect result: " + success);
+
+    if (!success) {
+        log("Spotify reconnection failed.");
+    }
 }
 async function playPlaylist(playlistUri, position) {
     await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${window.deviceId}`,

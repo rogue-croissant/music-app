@@ -4,8 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using YouTubeMusicAPI.Client;
-using YouTubeMusicAPI.Models.Library;
 
 namespace Music_app.MVVM.Services
 {

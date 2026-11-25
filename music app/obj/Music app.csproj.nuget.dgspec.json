@@ -55,6 +55,14 @@
               "target": "Package",
               "version": "[2.1.4, )"
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.78.0, )"
+            },
+            "Google.Apis.YouTube.v3": {
+              "target": "Package",
+              "version": "[1.78.0.4325, )"
+            },
             "Microsoft.Web.WebView2": {
               "target": "Package",
               "version": "[1.0.4078.44, )"
@@ -70,10 +78,6 @@
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[10.0.12, )"
-            },
-            "YouTubeMusicAPI": {
-              "target": "Package",
-              "version": "[3.1.0, )"
             }
           },
           "imports": [

@@ -2,19 +2,6 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
-      "Acornima/1.7.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Acornima.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Acornima.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "AnimatedImage/2.1.4": {
         "type": "package",
         "compile": {
@@ -63,69 +50,71 @@
           }
         }
       },
-      "Jint/4.17.0": {
+      "Google.Apis/1.78.0": {
         "type": "package",
         "dependencies": {
-          "Acornima": "1.7.0"
+          "Google.Apis.Core": "1.78.0"
         },
         "compile": {
-          "lib/net8.0/Jint.dll": {
-            "related": ".xml"
+          "lib/net6.0/Google.Apis.dll": {
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Jint.dll": {
-            "related": ".xml"
+          "lib/net6.0/Google.Apis.dll": {
+            "related": ".pdb;.xml"
           }
         }
       },
-      "Microsoft.Bcl.AsyncInterfaces/10.0.14": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.14": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.Logging.Abstractions/10.0.14": {
+      "Google.Apis.Auth/1.78.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.14",
-          "System.Diagnostics.DiagnosticSource": "10.0.14"
+          "Google.Apis": "1.78.0",
+          "Google.Apis.Core": "1.78.0",
+          "System.Management": "7.0.2"
         },
         "compile": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "related": ".xml"
+          "lib/net6.0/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "related": ".xml"
+          "lib/net6.0/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.78.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.4"
+        },
+        "compile": {
+          "lib/net6.0/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
           }
         },
-        "build": {
-          "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
+        "runtime": {
+          "lib/net6.0/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.YouTube.v3/1.78.0.4325": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.78.0",
+          "Google.Apis.Auth": "1.78.0"
+        },
+        "compile": {
+          "lib/net6.0/Google.Apis.YouTube.v3.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Google.Apis.YouTube.v3.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Web.WebView2/1.0.4078.44": {
@@ -216,20 +205,20 @@
           }
         }
       },
-      "System.Diagnostics.DiagnosticSource/10.0.14": {
+      "System.CodeDom/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
+          "lib/net7.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
+          "lib/net7.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
         "build": {
-          "buildTransitive/net8.0/_._": {}
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "System.Drawing.Common/10.0.12": {
@@ -263,6 +252,31 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
+      "System.Management/7.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net7.0/System.Management.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.ValueTuple/4.5.0": {
         "type": "package",
         "compile": {
@@ -287,49 +301,10 @@
             "related": ".xml"
           }
         }
-      },
-      "YouTubeMusicAPI/3.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Jint": "4.17.0",
-          "Microsoft.Bcl.AsyncInterfaces": "10.0.14",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.14",
-          "Newtonsoft.Json": "13.0.4"
-        },
-        "compile": {
-          "lib/netstandard2.0/YouTubeMusicAPI.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/YouTubeMusicAPI.dll": {
-            "related": ".xml"
-          }
-        }
       }
     }
   },
   "libraries": {
-    "Acornima/1.7.0": {
-      "sha512": "a2I4O4qkuAdB0oSaGz6/k0n/bXxMbGcLBra5dNTTVSLmTwM7uORA8ebpOrNMmDfFWOMwvuaRL6gPprRV4HTV0w==",
-      "type": "package",
-      "path": "acornima/1.7.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "acornima.1.7.0.nupkg.sha512",
-        "acornima.nuspec",
-        "lib/net462/Acornima.dll",
-        "lib/net462/Acornima.xml",
-        "lib/net8.0/Acornima.dll",
-        "lib/net8.0/Acornima.xml",
-        "lib/netstandard2.0/Acornima.dll",
-        "lib/netstandard2.0/Acornima.xml",
-        "lib/netstandard2.1/Acornima.dll",
-        "lib/netstandard2.1/Acornima.xml"
-      ]
-    },
     "AnimatedImage/2.1.4": {
       "sha512": "heiP4rOzTeLRcA3JdU9SE2anO15N0qlLAEQY47nZQ443JWkr1K8CQYzZkabGbowuBt14wg4u8bAnTMUkDUUNlw==",
       "type": "package",
@@ -396,152 +371,92 @@
         "lib/netstandard2.0/EmbedIO.xml"
       ]
     },
-    "Jint/4.17.0": {
-      "sha512": "9jdpLQQYsWTjOn2THpiR8zRJ34ksV6ofW0gJvZxJW/fIGK+A+TkpWonhuuLDRwqLDjP+9WsxYt2MEge6lWjk2A==",
+    "Google.Apis/1.78.0": {
+      "sha512": "pKMYqVircLwkdWwTIkNlwJ8FlUNuG9ZqkmnyJ03vJ51j/Ph59+C/Cp4XWLj0NeeTH6LmLaScweJ3kw+kjZ+clg==",
       "type": "package",
-      "path": "jint/4.17.0",
+      "path": "google.apis/1.78.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
-        "jint.4.17.0.nupkg.sha512",
-        "jint.nuspec",
-        "lib/net10.0/Jint.dll",
-        "lib/net10.0/Jint.xml",
-        "lib/net462/Jint.dll",
-        "lib/net462/Jint.xml",
-        "lib/net8.0/Jint.dll",
-        "lib/net8.0/Jint.xml",
-        "lib/netstandard2.0/Jint.dll",
-        "lib/netstandard2.0/Jint.xml",
-        "lib/netstandard2.1/Jint.dll",
-        "lib/netstandard2.1/Jint.xml"
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.1.78.0.nupkg.sha512",
+        "google.apis.nuspec",
+        "lib/net462/Google.Apis.dll",
+        "lib/net462/Google.Apis.pdb",
+        "lib/net462/Google.Apis.xml",
+        "lib/net6.0/Google.Apis.dll",
+        "lib/net6.0/Google.Apis.pdb",
+        "lib/net6.0/Google.Apis.xml",
+        "lib/netstandard2.0/Google.Apis.dll",
+        "lib/netstandard2.0/Google.Apis.pdb",
+        "lib/netstandard2.0/Google.Apis.xml"
       ]
     },
-    "Microsoft.Bcl.AsyncInterfaces/10.0.14": {
-      "sha512": "HCu9NbiXDh9++j4eRNRHCOiKPw/7I5UEJlFIRaDM3v0+ttZaH8p8rjxSWfNgP2cGv5JAa4EZnmc/nlcUOTFlpA==",
+    "Google.Apis.Auth/1.78.0": {
+      "sha512": "C+Jzd1tTqZ3/2wVi5Tlkcvqt/+o67/JHvXSZCy89CfhSRwL5bm1HsKbk1KM0sBKGc/RKC8Pr/FsG6n6OZO/MFA==",
       "type": "package",
-      "path": "microsoft.bcl.asyncinterfaces/10.0.14",
+      "path": "google.apis.auth/1.78.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Bcl.AsyncInterfaces.targets",
-        "buildTransitive/net462/_._",
-        "lib/net462/Microsoft.Bcl.AsyncInterfaces.dll",
-        "lib/net462/Microsoft.Bcl.AsyncInterfaces.xml",
-        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll",
-        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.xml",
-        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll",
-        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.xml",
-        "microsoft.bcl.asyncinterfaces.10.0.14.nupkg.sha512",
-        "microsoft.bcl.asyncinterfaces.nuspec",
-        "useSharedDesignerContext.txt"
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.auth.1.78.0.nupkg.sha512",
+        "google.apis.auth.nuspec",
+        "lib/net462/Google.Apis.Auth.dll",
+        "lib/net462/Google.Apis.Auth.pdb",
+        "lib/net462/Google.Apis.Auth.xml",
+        "lib/net6.0/Google.Apis.Auth.dll",
+        "lib/net6.0/Google.Apis.Auth.pdb",
+        "lib/net6.0/Google.Apis.Auth.xml",
+        "lib/netstandard2.0/Google.Apis.Auth.dll",
+        "lib/netstandard2.0/Google.Apis.Auth.pdb",
+        "lib/netstandard2.0/Google.Apis.Auth.xml"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.14": {
-      "sha512": "QtpQzuSZVyTPCuHW058yCs9Nj0394uUkNyFHS813nOmK9UgUdBdaprJ5PPsBgsQIpxADTsTkbaMMonykem6qdw==",
+    "Google.Apis.Core/1.78.0": {
+      "sha512": "rkiq62czYwim6XtS4GEI80zQMOHZbB8UqP3oeFcjvj8x5bUmdWagcT7oHQeQhMR1eq9tbmpvYvNy490iDvk6bQ==",
       "type": "package",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.14",
+      "path": "google.apis.core/1.78.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net8.0/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
-        "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "microsoft.extensions.dependencyinjection.abstractions.10.0.14.nupkg.sha512",
-        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
-        "useSharedDesignerContext.txt"
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.core.1.78.0.nupkg.sha512",
+        "google.apis.core.nuspec",
+        "lib/net462/Google.Apis.Core.dll",
+        "lib/net462/Google.Apis.Core.pdb",
+        "lib/net462/Google.Apis.Core.xml",
+        "lib/net6.0/Google.Apis.Core.dll",
+        "lib/net6.0/Google.Apis.Core.pdb",
+        "lib/net6.0/Google.Apis.Core.xml",
+        "lib/netstandard2.0/Google.Apis.Core.dll",
+        "lib/netstandard2.0/Google.Apis.Core.pdb",
+        "lib/netstandard2.0/Google.Apis.Core.xml"
       ]
     },
-    "Microsoft.Extensions.Logging.Abstractions/10.0.14": {
-      "sha512": "SwcbEBtkECq3D2oywvHkm46fyrX9Dd2JPWphDnHUc2+cUWR1Mdo41atAjh/9iZjgQxuvbKfZKXqostT/LZfefA==",
+    "Google.Apis.YouTube.v3/1.78.0.4325": {
+      "sha512": "29UAEV8gACaddtdPeAthoKnRjZIhoBk2u/2hIFfyMx1xQf/bn0wCr6bHhDob7eJ+g4dI/E/7zYqJKUTPDlc69g==",
       "type": "package",
-      "path": "microsoft.extensions.logging.abstractions/10.0.14",
+      "path": "google.apis.youtube.v3/1.78.0.4325",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "analyzers/dotnet/roslyn3.11/cs/Microsoft.Extensions.Logging.Generators.dll",
-        "analyzers/dotnet/roslyn3.11/cs/cs/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/de/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/es/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/fr/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/it/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/ja/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/ko/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/pl/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/pt-BR/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/ru/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/tr/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/Microsoft.Extensions.Logging.Generators.dll",
-        "analyzers/dotnet/roslyn4.0/cs/cs/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/de/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/es/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/fr/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/it/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/ja/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/ko/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/pl/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/pt-BR/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/ru/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/tr/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/Microsoft.Extensions.Logging.Generators.dll",
-        "analyzers/dotnet/roslyn4.4/cs/cs/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/de/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/es/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/fr/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/it/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/ja/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/ko/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/pl/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/pt-BR/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/ru/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/tr/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/Microsoft.Extensions.Logging.Generators.resources.dll",
-        "buildTransitive/net461/Microsoft.Extensions.Logging.Abstractions.targets",
-        "buildTransitive/net462/Microsoft.Extensions.Logging.Abstractions.targets",
-        "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets",
-        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Logging.Abstractions.targets",
-        "buildTransitive/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.targets",
-        "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "lib/net462/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/net462/Microsoft.Extensions.Logging.Abstractions.xml",
-        "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "lib/net9.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/net9.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "microsoft.extensions.logging.abstractions.10.0.14.nupkg.sha512",
-        "microsoft.extensions.logging.abstractions.nuspec",
-        "useSharedDesignerContext.txt"
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.youtube.v3.1.78.0.4325.nupkg.sha512",
+        "google.apis.youtube.v3.nuspec",
+        "lib/net462/Google.Apis.YouTube.v3.dll",
+        "lib/net462/Google.Apis.YouTube.v3.pdb",
+        "lib/net462/Google.Apis.YouTube.v3.xml",
+        "lib/net6.0/Google.Apis.YouTube.v3.dll",
+        "lib/net6.0/Google.Apis.YouTube.v3.pdb",
+        "lib/net6.0/Google.Apis.YouTube.v3.xml",
+        "lib/netstandard2.0/Google.Apis.YouTube.v3.dll",
+        "lib/netstandard2.0/Google.Apis.YouTube.v3.pdb",
+        "lib/netstandard2.0/Google.Apis.YouTube.v3.xml"
       ]
     },
     "Microsoft.Web.WebView2/1.0.4078.44": {
@@ -752,31 +667,30 @@
         "spotifyapi.web.auth.nuspec"
       ]
     },
-    "System.Diagnostics.DiagnosticSource/10.0.14": {
-      "sha512": "9rC+iZCotdVntRirhuf+pjW1kmeJCsdLIkSBuLdYGX8PY483gnQXbLa4BG6PVilhPD52uv0RycuwkuOJFyw0tw==",
+    "System.CodeDom/7.0.0": {
+      "sha512": "GLltyqEsE5/3IE+zYRP5sNa1l44qKl9v+bfdMcwg+M9qnQf47wK3H0SUR/T+3N4JEQXF3vV4CSuuo0rsg+nq2A==",
       "type": "package",
-      "path": "system.diagnostics.diagnosticsource/10.0.14",
+      "path": "system.codedom/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
+        "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/System.Diagnostics.DiagnosticSource.targets",
+        "buildTransitive/net461/System.CodeDom.targets",
         "buildTransitive/net462/_._",
-        "buildTransitive/net8.0/_._",
-        "buildTransitive/netcoreapp2.0/System.Diagnostics.DiagnosticSource.targets",
-        "lib/net10.0/System.Diagnostics.DiagnosticSource.dll",
-        "lib/net10.0/System.Diagnostics.DiagnosticSource.xml",
-        "lib/net462/System.Diagnostics.DiagnosticSource.dll",
-        "lib/net462/System.Diagnostics.DiagnosticSource.xml",
-        "lib/net8.0/System.Diagnostics.DiagnosticSource.dll",
-        "lib/net8.0/System.Diagnostics.DiagnosticSource.xml",
-        "lib/net9.0/System.Diagnostics.DiagnosticSource.dll",
-        "lib/net9.0/System.Diagnostics.DiagnosticSource.xml",
-        "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.dll",
-        "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.xml",
-        "system.diagnostics.diagnosticsource.10.0.14.nupkg.sha512",
-        "system.diagnostics.diagnosticsource.nuspec",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
+        "lib/net462/System.CodeDom.dll",
+        "lib/net462/System.CodeDom.xml",
+        "lib/net6.0/System.CodeDom.dll",
+        "lib/net6.0/System.CodeDom.xml",
+        "lib/net7.0/System.CodeDom.dll",
+        "lib/net7.0/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.7.0.0.nupkg.sha512",
+        "system.codedom.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -830,6 +744,34 @@
         "lib/xamarinwatchos10/_._",
         "system.drawing.common.10.0.12.nupkg.sha512",
         "system.drawing.common.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Management/7.0.2": {
+      "sha512": "/qEUN91mP/MUQmJnM5y5BdT7ZoPuVrtxnFlbJ8a3kBJGhe2wCzBfnPFtK2wTtEEcf3DMGR9J00GZZfg6HRI6yA==",
+      "type": "package",
+      "path": "system.management/7.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "lib/net462/_._",
+        "lib/net6.0/System.Management.dll",
+        "lib/net6.0/System.Management.xml",
+        "lib/net7.0/System.Management.dll",
+        "lib/net7.0/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net6.0/System.Management.dll",
+        "runtimes/win/lib/net6.0/System.Management.xml",
+        "runtimes/win/lib/net7.0/System.Management.dll",
+        "runtimes/win/lib/net7.0/System.Management.xml",
+        "system.management.7.0.2.nupkg.sha512",
+        "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -891,32 +833,17 @@
         "unosquare.swan.lite.3.1.0.nupkg.sha512",
         "unosquare.swan.lite.nuspec"
       ]
-    },
-    "YouTubeMusicAPI/3.1.0": {
-      "sha512": "zMiNsLXcssKFiQPkBj/20EVjnfPJwHLmBakhSIznauxbiJxFIOMBIte+bKQuXX/oxp31QpZc5V1K0K9OCGREMw==",
-      "type": "package",
-      "path": "youtubemusicapi/3.1.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "README.md",
-        "icon.png",
-        "lib/netstandard2.0/YouTubeMusicAPI.dll",
-        "lib/netstandard2.0/YouTubeMusicAPI.xml",
-        "youtubemusicapi.3.1.0.nupkg.sha512",
-        "youtubemusicapi.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "AnimatedImage.Wpf >= 2.1.4",
+      "Google.Apis.Auth >= 1.78.0",
+      "Google.Apis.YouTube.v3 >= 1.78.0.4325",
       "Microsoft.Web.WebView2 >= 1.0.4078.44",
       "SpotifyAPI.Web >= 7.4.2",
       "SpotifyAPI.Web.Auth >= 7.4.2",
-      "System.Drawing.Common >= 10.0.12",
-      "YouTubeMusicAPI >= 3.1.0"
+      "System.Drawing.Common >= 10.0.12"
     ]
   },
   "packageFolders": {
@@ -974,6 +901,14 @@
             "target": "Package",
             "version": "[2.1.4, )"
           },
+          "Google.Apis.Auth": {
+            "target": "Package",
+            "version": "[1.78.0, )"
+          },
+          "Google.Apis.YouTube.v3": {
+            "target": "Package",
+            "version": "[1.78.0.4325, )"
+          },
           "Microsoft.Web.WebView2": {
             "target": "Package",
             "version": "[1.0.4078.44, )"
@@ -989,10 +924,6 @@
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[10.0.12, )"
-          },
-          "YouTubeMusicAPI": {
-            "target": "Package",
-            "version": "[3.1.0, )"
           }
         },
         "imports": [
